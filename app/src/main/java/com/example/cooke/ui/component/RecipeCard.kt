@@ -41,10 +41,10 @@ fun RecipeCard(
             )
         {
             AsyncImage(
-                //modifier.fillMaxWidth(),
                 model = recipeCardViewState.imageUrl,
                 contentDescription = null,
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
             )
             FavouriteButton(isFavourite = recipeCardViewState.isFavorite)
             Row(

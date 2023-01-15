@@ -5,5 +5,6 @@ data class Recipe(
     val title: String,
     val imageUrl: String?,
     val cookTime: Float,
-    val difficulty: String
+    val difficulty: String,
+    val isFavorite: Boolean
 )

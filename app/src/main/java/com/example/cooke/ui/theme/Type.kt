@@ -7,12 +7,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
+val CustomHeader = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight(800),
+    fontSize = 24.sp
+)
+
+val SectionTitle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight(800),
+    fontSize = 20.sp
+)
+
 val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
+
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,

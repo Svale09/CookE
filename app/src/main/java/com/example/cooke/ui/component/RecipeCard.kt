@@ -11,13 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.cooke.model.Recipe
+import com.example.cooke.ui.favorites.FavoritesViewState
 
 
 data class RecipeCardViewState(
+    val id: Int,
     val title: String,
     val imageUrl: String?,
     val isFavorite: Boolean
@@ -26,13 +30,15 @@ data class RecipeCardViewState(
 @Composable
 fun RecipeCard(
     recipeCardViewState: RecipeCardViewState,
-    modifier: Modifier
+    modifier: Modifier,
+    onFavoriteToggle: (Boolean) -> Unit,
+    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
 ) {
     Card(
         modifier
             .size(200.dp, 180.dp)
             .padding(10.dp)
-            .clickable { },
+            .clickable { onNavigateToRecipeDetails(recipeCardViewState) },
         elevation = 10.dp
     ) {
         Box(
@@ -46,20 +52,22 @@ fun RecipeCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            FavouriteButton(isFavourite = recipeCardViewState.isFavorite)
+            FavouriteButton(isFavourite = recipeCardViewState.isFavorite, onFavouriteToggle = onFavoriteToggle)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(40.dp)
-                    .background(Color.White/*(0xF06292).copy(1F)*/)
+                    .height(60.dp)
+                    .background(Color.White)
                     .align(Alignment.BottomCenter),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    modifier = Modifier.padding(5.dp),
+                    modifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp),
                     text = recipeCardViewState.title,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         }
@@ -71,10 +79,13 @@ fun RecipeCard(
 private fun RecipeCardPreview() {
     RecipeCard(
         recipeCardViewState = RecipeCardViewState(
+            id = 1,
             title = "Mađarica",
             imageUrl = "https://podravkaiovariations.azureedge.net/b592273e-63bb-11eb-a9a0-0242ac120018/v/f2b1f6a6-64bc-11eb-b6c2-0242ac130010/1024x768-f2b21802-64bc-11eb-a115-0242ac130010.webp",
             isFavorite = false,
         ),
-        modifier = Modifier
+        modifier = Modifier,
+        {},
+        {}
     )
 }

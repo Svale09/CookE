@@ -11,6 +11,7 @@ class RecipeDetailsMapperImpl : RecipeDetailsMapper {
         ingridients = recipeDetails.ingridients,
         preparationTime = recipeDetails.preparationTime,
         preparation = recipeDetails.preparation,
-        difficulty = recipeDetails.difficulty
+        difficulty = recipeDetails.difficulty,
+        isFavorite = recipeDetails.isFavorite
     )
 }

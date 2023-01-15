@@ -7,5 +7,6 @@ data class RecipeDetails(
     val difficulty: String,
     val ingridients: List<String>,
     val preparation: List<String>,
-    val preparationTime: Float
+    val preparationTime: Float,
+    val isFavorite: Boolean
 )

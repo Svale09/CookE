@@ -104,6 +104,7 @@ object RecipesMock {
             "Dust top layer with remaining tablespoon of cocoa powder. Top with shaved or finely grated chocolate, if desired.",
             "Cover with plastic wrap and let chill in the refrigerator for at least 4 hours (if you can wait 24 hours, all the better) before slicing or scooping to serve."
         ),
-        1.5.toFloat()
+        1.5.toFloat(),
+        false
     )
 }

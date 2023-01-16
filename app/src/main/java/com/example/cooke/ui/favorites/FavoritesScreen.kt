@@ -82,6 +82,6 @@ fun FavoritesBody(
 
 @Preview
 @Composable
-private fun FavoritesScreenBodyPreview() {
+private fun FavoritesScreenPreview() {
     FavoritesScreen(onNavigateToRecipeDetails = {}, onToggleFavoriteButton = {})
 }

@@ -1,17 +1,28 @@
 package com.example.cooke.ui.component
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldColors
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.cooke.ui.theme.CustomHeader
+import com.example.cooke.ui.theme.SectionTitle
+import com.example.cooke.ui.theme.Shapes
 
 
 data class InputFieldViewState(
@@ -25,15 +36,30 @@ fun InputField(
     modifier: Modifier
 ) {
     var text by rememberSaveable { mutableStateOf("") }
-    OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
-        label = { Text(text = inputFieldViewState.title) },
-        placeholder = { Text(text = inputFieldViewState.placeholder) },
-        modifier = modifier
-            .padding(vertical = 5.dp, horizontal = 10.dp)
-            .fillMaxWidth()
-    )
+    Column(
+        modifier.wrapContentSize(),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = inputFieldViewState.title,
+            style = SectionTitle,
+            modifier = Modifier.padding(horizontal = 18.dp),
+            color = Color(0xff3f001b)
+        )
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            placeholder = { Text(text = inputFieldViewState.placeholder) },
+            modifier = Modifier
+                .padding(vertical = 5.dp, horizontal = 10.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color(0xffcc8d9d),
+                backgroundColor = Color.White
+            )
+        )
+    }
 }
 
 @Preview

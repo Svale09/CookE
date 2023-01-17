@@ -56,18 +56,19 @@ fun RecipeCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp)
-                    .background(Color.White)
+                    .height(55.dp)
+                    .background(Color(0xffffd9e1).copy(alpha = 1f))
                     .align(Alignment.BottomCenter),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     modifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp),
                     text = recipeCardViewState.title,
-                    fontSize = 18.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color(0xff3f001b)
                 )
             }
         }
@@ -80,7 +81,7 @@ private fun RecipeCardPreview() {
     RecipeCard(
         recipeCardViewState = RecipeCardViewState(
             id = 1,
-            title = "Mađarica",
+            title = "Black forrest gato cake",
             imageUrl = "https://podravkaiovariations.azureedge.net/b592273e-63bb-11eb-a9a0-0242ac120018/v/f2b1f6a6-64bc-11eb-b6c2-0242ac130010/1024x768-f2b21802-64bc-11eb-a115-0242ac130010.webp",
             isFavorite = false,
         ),

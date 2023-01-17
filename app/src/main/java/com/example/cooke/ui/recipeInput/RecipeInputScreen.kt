@@ -18,6 +18,7 @@ import com.example.cooke.ui.component.InputField
 import com.example.cooke.ui.component.InputFieldViewState
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapper
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapperImpl
+import com.example.cooke.ui.theme.SectionTitle
 import com.example.cooke.ui.theme.Spacing
 
 private val RecipeInputViewStateMapper: RecipeInputScreenMapper = RecipeInputScreenMapperImpl()
@@ -37,8 +38,9 @@ fun RecipeInputScreen() {
             Column(
                 modifier = Modifier
                     .verticalScroll(scrollState)
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.Start
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 InputField(
                     inputFieldViewState = RecipeInputViewState.titleInputFieldState,
@@ -52,6 +54,16 @@ fun RecipeInputScreen() {
                     inputFieldViewState = RecipeInputViewState.preparationInputFieldViewState,
                     modifier = Modifier.padding(vertical = 6.dp)
                 )
+                Text(text = "Slike", style = SectionTitle, modifier = Modifier.padding(horizontal = 18.dp))
+                Button(
+                    onClick = { /*TODO*/ },
+                    shape = RoundedCornerShape(10.dp),
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .size(60.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xfff3dde1))
+                ) {
+                }
                 Button(
                     onClick = { /*TODO*/ },
                     shape = RoundedCornerShape(20.dp),
@@ -79,4 +91,3 @@ fun RecipeInputScreen() {
 private fun RecipeInputScreenPreview() {
     RecipeInputScreen()
 }
-

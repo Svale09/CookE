@@ -16,8 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.cooke.model.Recipe
-import com.example.cooke.ui.favorites.FavoritesViewState
+import com.example.cooke.ui.home.HomeRecipeViewState
 
 
 data class RecipeCardViewState(
@@ -32,7 +31,7 @@ fun RecipeCard(
     recipeCardViewState: RecipeCardViewState,
     modifier: Modifier,
     onFavoriteToggle: (Boolean) -> Unit,
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
+    onNavigateToRecipeDetails: (HomeRecipeViewState) -> Unit
 ) {
     Card(
         modifier
@@ -86,7 +85,6 @@ private fun RecipeCardPreview() {
             isFavorite = false,
         ),
         modifier = Modifier,
-        {},
         {}
-    )
+    ) {}
 }

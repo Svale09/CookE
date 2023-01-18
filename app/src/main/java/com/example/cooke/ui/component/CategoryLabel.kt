@@ -15,23 +15,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-sealed class CategoryLabelTextViewState {
-    data class CategoryStringParam(val value: String) : CategoryLabelTextViewState()
+sealed class RecipeCategoryLabelTextViewState {
+    data class CategoryStringParam(val value: String) : RecipeCategoryLabelTextViewState()
     data class CategoryStringResource(@StringRes val value: Int) :
-        CategoryLabelTextViewState()
+        RecipeCategoryLabelTextViewState()
 }
 
-data class CategoryLabelViewState(
+data class RecipeCategoryLabelViewState(
     val itemId: Int,
     val isSelected: Boolean,
-    val categoryText: CategoryLabelTextViewState
+    val categoryText: RecipeCategoryLabelTextViewState
 )
 
 @Composable
-fun MovieCategoryLabel(
-    categoryLabelViewState: CategoryLabelViewState,
+fun RecipeCategoryLabel(
+    categoryLabelViewState: RecipeCategoryLabelViewState,
     modifier: Modifier = Modifier,
-    onClick: (CategoryLabelViewState) -> Unit
+    onClick: (RecipeCategoryLabelViewState) -> Unit
 ) {
     Box(modifier = modifier.wrapContentSize()) {
         Column(
@@ -41,8 +41,8 @@ fun MovieCategoryLabel(
         ) {
             Text(
                 text = when (categoryLabelViewState.categoryText) {
-                    is CategoryLabelTextViewState.CategoryStringParam -> categoryLabelViewState.categoryText.value
-                    is CategoryLabelTextViewState.CategoryStringResource -> stringResource(id = categoryLabelViewState.categoryText.value)
+                    is RecipeCategoryLabelTextViewState.CategoryStringParam -> categoryLabelViewState.categoryText.value
+                    is RecipeCategoryLabelTextViewState.CategoryStringResource -> stringResource(id = categoryLabelViewState.categoryText.value)
                 },
                 fontSize = 16.sp,
                 fontWeight = if (categoryLabelViewState.isSelected) FontWeight.Bold else FontWeight.Normal,
@@ -64,11 +64,11 @@ fun MovieCategoryLabel(
 @Preview
 @Composable
 private fun PreviewMovieCategoryLabel() {
-    MovieCategoryLabel(
-        categoryLabelViewState = CategoryLabelViewState(
+    RecipeCategoryLabel(
+        categoryLabelViewState = RecipeCategoryLabelViewState(
             1,
             false,
-            CategoryLabelTextViewState.CategoryStringParam("Chocolate")
+            RecipeCategoryLabelTextViewState.CategoryStringParam("Chocolate")
         ),
         modifier = Modifier,
         onClick = {}

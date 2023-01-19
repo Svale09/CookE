@@ -9,4 +9,5 @@
     <string name="CAKES">Cakes</string>
     <string name="home" translatable="false">Home</string>
     <string name="favorites" translatable="false">Favorites</string>
+    <string name="recipe_input">Recipe Input</string>
 </resources>

@@ -33,7 +33,7 @@ val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewSta
 )
 
 @Composable
-fun RecipeInputScreenRoute(){
+fun RecipeInputRoute(){
     RecipeInputScreen()
 }
 

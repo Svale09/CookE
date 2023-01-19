@@ -59,7 +59,6 @@ fun FavoritesBody(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
-            .padding(horizontal = padding.small)
             .fillMaxSize(),
         content = {
             item(span = { GridItemSpan(currentLineSpan = maxCurrentLineSpan) }) {

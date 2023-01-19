@@ -44,9 +44,9 @@ fun RecipeCategoryLabel(
                     is RecipeCategoryLabelTextViewState.CategoryStringParam -> categoryLabelViewState.categoryText.value
                     is RecipeCategoryLabelTextViewState.CategoryStringResource -> stringResource(id = categoryLabelViewState.categoryText.value)
                 },
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontWeight = if (categoryLabelViewState.isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (categoryLabelViewState.isSelected) Color.Black else Color.Gray,
+                color = if (categoryLabelViewState.isSelected) Color(0xff3f001b) else Color.Gray,
             )
             Spacer(modifier = Modifier.height(4.dp))
             if (categoryLabelViewState.isSelected) {
@@ -54,7 +54,7 @@ fun RecipeCategoryLabel(
                     modifier = Modifier
                         .height(3.dp)
                         .fillMaxWidth()
-                        .background(color = Color(0xFF0b253f))
+                        .background(color = Color(0xff3f001b))
                 )
             }
         }

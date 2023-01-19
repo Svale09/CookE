@@ -48,7 +48,7 @@ fun InputField(
         )
         OutlinedTextField(
             value = text,
-            onValueChange = { text = it },
+            onValueChange = {text = it},
             placeholder = { Text(text = inputFieldViewState.placeholder) },
             modifier = Modifier
                 .padding(vertical = 5.dp, horizontal = 10.dp)

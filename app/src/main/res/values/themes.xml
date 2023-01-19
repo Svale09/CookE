@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.CookE" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:statusBarColor">@color/pink_dark</item>
+        <item name="android:navigationBarColor">@color/pink_dark</item>
     </style>
 </resources>

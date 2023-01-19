@@ -2,7 +2,7 @@ package com.example.cooke.ui.home
 
 import com.example.cooke.ui.component.RecipeCategoryLabelViewState
 
-data class HomeRecipeViewState(
+data class HomeRecipeCardViewState(
     val id: Int,
     val title: String,
     val imageUrl: String?,
@@ -11,5 +11,5 @@ data class HomeRecipeViewState(
 
 data class HomeRecipeCategoryViewState(
     val recipeCategories: List<RecipeCategoryLabelViewState>,
-    val recipes: List<HomeRecipeViewState>
+    val recipes: List<HomeRecipeCardViewState>
 )

@@ -7,4 +7,6 @@
     <string name="DRY">Dry</string>
     <string name="COOKIES">Cookies</string>
     <string name="CAKES">Cakes</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="favorites" translatable="false">Favorites</string>
 </resources>

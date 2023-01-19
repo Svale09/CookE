@@ -15,6 +15,7 @@ import com.example.cooke.ui.component.RecipeCard
 import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.favorites.mapper.FavoritesMapper
 import com.example.cooke.ui.favorites.mapper.FavoritesMapperImpl
+import com.example.cooke.ui.home.HomeRecipeCardViewState
 import com.example.cooke.ui.theme.CustomHeader
 import com.example.cooke.ui.theme.Spacing
 

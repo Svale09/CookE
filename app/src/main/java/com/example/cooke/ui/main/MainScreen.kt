@@ -27,7 +27,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
-import com.example.cooke.navigation.RECIPE_INPUT_ROUTE
 import com.example.cooke.ui.favorites.FavoritesRoute
 import com.example.cooke.ui.recipeInput.RecipeInputRoute
 
@@ -39,7 +38,6 @@ fun MainScreen() {
         derivedStateOf {
             when (navBackStackEntry?.destination?.route) {
                 RecipeDetailsDestination.route -> false
-                RECIPE_INPUT_ROUTE -> false
                 else -> true
             }
         }

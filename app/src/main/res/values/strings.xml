@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CookE</string>
+    <string name="CHOCOLATE">Chocolate</string>
+    <string name="FRUIT">Fruit</string>
+    <string name="NUTS">Nuts</string>
+    <string name="CREAM">Cream</string>
+    <string name="DRY">Dry</string>
+    <string name="COOKIES">Cookies</string>
+    <string name="CAKES">Cakes</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="favorites" translatable="false">Favorites</string>
+    <string name="recipe_input">Recipe Input</string>
 </resources>

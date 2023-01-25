@@ -32,7 +32,7 @@ fun FavouriteButton(
     ) {
         Image(
             painter = painterResource(
-                id = if (isFavourite) R.drawable.favuoirte_icon_selected else R.drawable.favouriteicon_unselected
+                id = if (isFavourite) R.drawable.favuoirte_icon_selected else R.drawable.favourite_icon_unselected
             ),
             contentDescription = "Favourite Icon",
         )

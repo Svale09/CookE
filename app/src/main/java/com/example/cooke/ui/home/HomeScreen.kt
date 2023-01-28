@@ -18,6 +18,8 @@ import com.example.cooke.ui.component.RecipeCategoryLabelViewState
 import com.example.cooke.ui.home.mapper.HomeScreenMapper
 import com.example.cooke.ui.home.mapper.HomeScreenMapperImpl
 import com.example.cooke.ui.theme.Spacing
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 private val homeScreenMapper: HomeScreenMapper = HomeScreenMapperImpl()
 

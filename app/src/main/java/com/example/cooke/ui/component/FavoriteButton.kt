@@ -26,7 +26,7 @@ fun FavouriteButton(
             .padding(5.dp)
             .size(37.dp)
             .clip(shape = CircleShape)
-            .background(Color(0xF06292).copy(alpha = 0.6F))
+            .background(Color(0xFFF06292).copy(alpha = 0.6F))
             .clickable { onFavouriteToggle(isFavourite) },
         contentAlignment = Alignment.Center
     ) {

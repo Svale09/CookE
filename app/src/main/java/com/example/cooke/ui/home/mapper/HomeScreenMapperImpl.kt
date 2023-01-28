@@ -40,7 +40,7 @@ class HomeScreenMapperImpl : HomeScreenMapper {
             isSelected = it == selectedRecipeCategory,
             categoryText = RecipeCategoryLabelTextViewState.CategoryStringResource(
                 when (it) {
-                    RecipeCategory.CHOCOLATE -> R.string.CHOCOLATE
+                    RecipeCategory.CHOCOLATE -> R.string.chocolate
                     RecipeCategory.FRUIT -> R.string.FRUIT
                     RecipeCategory.NUTS -> R.string.NUTS
                     RecipeCategory.DRY -> R.string.DRY

@@ -9,11 +9,15 @@ class RecipeInputScreenMapperImpl : RecipeInputScreenMapper{
         titleInputFieldViewState: InputFieldViewState,
         ingridientsInputFieldViewState: InputFieldViewState,
         preparationInputFieldViewState: InputFieldViewState,
+        durationInputFieldViewState: InputFieldViewState,
+        difficultyInputFieldViewState: InputFieldViewState,
         images: List<Image>
     ) = RecipeInputScreenViewState(
-        InputFieldViewState(titleInputFieldViewState.title,titleInputFieldViewState.placeholder),
-        InputFieldViewState(ingridientsInputFieldViewState.title,ingridientsInputFieldViewState.placeholder),
-        InputFieldViewState(preparationInputFieldViewState.title,preparationInputFieldViewState.placeholder),
+        InputFieldViewState(titleInputFieldViewState.title,titleInputFieldViewState.placeholder, ""),
+        InputFieldViewState(ingridientsInputFieldViewState.title,ingridientsInputFieldViewState.placeholder, ""),
+        InputFieldViewState(preparationInputFieldViewState.title,preparationInputFieldViewState.placeholder, ""),
+        InputFieldViewState(durationInputFieldViewState.title, durationInputFieldViewState.placeholder, ""),
+        InputFieldViewState(difficultyInputFieldViewState.title,difficultyInputFieldViewState.placeholder,""),
         emptyList()
     )
 }

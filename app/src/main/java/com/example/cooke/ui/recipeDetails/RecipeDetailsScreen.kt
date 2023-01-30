@@ -2,11 +2,9 @@ package com.example.cooke.ui.recipeDetails
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,14 +16,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.cooke.mock.RecipesMock
+import com.example.cooke.ui.component.FavouriteButton
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapper
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapperImpl
-import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.cooke.model.RecipeDetails
-import com.example.cooke.ui.component.FavouriteButton
 import com.example.cooke.ui.theme.CustomHeader
 import com.example.cooke.ui.theme.SectionTitle
 import com.example.cooke.ui.theme.Spacing

@@ -16,8 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cooke.R
+import com.example.cooke.model.Recipe
 import com.example.cooke.ui.component.InputField
 import com.example.cooke.ui.component.InputFieldViewState
+import com.example.cooke.ui.component.NumberInputField
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapper
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapperImpl
 import com.example.cooke.ui.theme.SectionTitle
@@ -26,14 +28,16 @@ import com.example.cooke.ui.theme.Spacing
 private val RecipeInputViewStateMapper: RecipeInputScreenMapper = RecipeInputScreenMapperImpl()
 
 val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewState(
-    InputFieldViewState("Naziv", "Unesi naziv kolača"),
-    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke"),
-    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme"),
+    InputFieldViewState("Naziv", "Unesi naziv kolača", ""),
+    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke", ""),
+    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme", ""),
+    InputFieldViewState("Vrijeme pripreme", "Unesi vrijeme pripreme", ""),
+    InputFieldViewState("Težina pripreme", "Unesi težinu pripreme", ""),
     emptyList()
 )
 
 @Composable
-fun RecipeInputRoute(){
+fun RecipeInputRoute() {
     RecipeInputScreen()
 }
 
@@ -72,7 +76,10 @@ private fun RecipeInputScreenPreview() {
 }
 
 @Composable
-fun RecipeInputScreenBody() {
+fun RecipeInputScreenBody(
+    /*onSaveRecipe: (Recipe) -> Unit,
+    inputRecipe: Recipe TODO{ Not yet implemented}*/
+) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -94,14 +101,19 @@ fun RecipeInputScreenBody() {
             inputFieldViewState = RecipeInputViewState.preparationInputFieldViewState,
             modifier = Modifier.padding(vertical = 6.dp)
         )
+        NumberInputField(
+            inputFieldViewState = RecipeInputViewState.durationInputFieldViewState,
+            modifier = Modifier.padding(vertical = 6.dp)
+        )
         Text(
             text = "Slike",
             style = SectionTitle,
             modifier = Modifier.padding(horizontal = 18.dp),
             color = Color(0xff3f001b)
         )
+        //TODO{Implement an input field/dropdown picker for difficulty}
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
                 .padding(end = 10.dp, start = 10.dp, top = 10.dp, bottom = 80.dp)

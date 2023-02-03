@@ -10,7 +10,7 @@ interface RecipeInputScreenMapper {
         ingridientsInputFieldViewState: InputFieldViewState,
         preparationInputFieldViewState: InputFieldViewState,
         durationInputFieldViewState: InputFieldViewState,
-        difficultyInputFieldViewState: InputFieldViewState,
+        difficultyDropdownMenuViewState: DropdownMenuViewState,
         images: List<Image>
     ): RecipeInputScreenViewState
 }

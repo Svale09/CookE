@@ -32,7 +32,7 @@ fun InputField(
     inputFieldViewState: InputFieldViewState,
     modifier: Modifier
 ) {
-    var text by rememberSaveable { mutableStateOf("") } //????? kako doci do unesenog teksta izvan funkcije
+    var text by rememberSaveable { mutableStateOf("") }
     Column(
         modifier.wrapContentSize(),
         horizontalAlignment = Alignment.Start
@@ -62,7 +62,7 @@ fun InputField(
 
 @Preview
 @Composable
-private fun PreviewInputFieldViewState() {
+private fun PreviewInputField() {
     InputField(
         inputFieldViewState = InputFieldViewState(
             "Naziv",

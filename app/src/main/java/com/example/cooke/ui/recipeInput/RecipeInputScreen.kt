@@ -27,10 +27,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.cooke.R
 import com.example.cooke.model.RecipeCategory
-import com.example.cooke.ui.component.DropdownMenu
-import com.example.cooke.ui.component.InputField
-import com.example.cooke.ui.component.InputFieldViewState
-import com.example.cooke.ui.component.NumberInputField
+import com.example.cooke.ui.component.*
 import com.example.cooke.ui.recipeInput.FirebaseExample.saveRecipe
 import com.example.cooke.ui.recipeInput.mapper.DropdownMenuViewState
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapper
@@ -59,17 +56,6 @@ val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewSta
     emptyList()
 )
 
-data class InputRecipe(
-    var title: String = "",
-    var difficulty: String = "",
-    var ingridients: List<String> = emptyList(),
-    var preparation: List<String> = emptyList(),
-    var isFavorite: Boolean = false,
-    var duration: Float = -1.toFloat(),
-    var imageURI: String = "",
-    var category: String = ""
-)
-
 @Composable
 fun RecipeInputRoute() {
     RecipeInputScreen(InputRecipe())
@@ -77,7 +63,6 @@ fun RecipeInputRoute() {
 
 @Composable
 fun RecipeInputScreen(inputRecipe: InputRecipe) {
-    var selectedImage by remember { mutableStateOf(inputRecipe.imageURI) }
     Scaffold(
         content = { padding ->
             Box(modifier = Modifier.fillMaxSize()) {
@@ -86,15 +71,11 @@ fun RecipeInputScreen(inputRecipe: InputRecipe) {
                     onClick = {
                         inputRecipe.title = RecipeInputViewState.titleInputFieldState.text
                         inputRecipe.ingridients =
-                            RecipeInputViewState.ingridientsInputFieldViewState.text.split(
-                                ","
-                            ).toList()
+                            RecipeInputViewState.ingridientsInputFieldViewState.text.split(",").toList()
                         inputRecipe.duration =
                             RecipeInputViewState.durationInputFieldViewState.text.toFloat()
                         inputRecipe.preparation =
-                            RecipeInputViewState.preparationInputFieldViewState.text.split(
-                                "\n"
-                            ).toList()
+                            RecipeInputViewState.preparationInputFieldViewState.text.split("\n").toList()
                         inputRecipe.isFavorite = false
                         inputRecipe.difficulty =
                             RecipeInputViewState.difficultyDropdownMenuViewState.pickedOption
@@ -230,30 +211,4 @@ fun RecipeInputScreenBody(
         )
     }
     inputRecipe.imageURI = selectedImage
-}
-
-@Composable
-fun TitledDropdownMenu(
-    modifier: Modifier,
-    title: String,
-    dropdownMenuViewState: DropdownMenuViewState
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = title,
-            style = SectionTitle,
-            modifier = Modifier.padding(horizontal = 18.dp),
-            color = Color(0xff3f001b)
-        )
-        DropdownMenu(
-            dropdownMenuViewState = dropdownMenuViewState,
-            modifier = Modifier.padding(vertical = 6.dp),
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun TitledDropdownMenuPreview() {
-    TitledDropdownMenu(modifier = Modifier, "", RecipeInputViewState.categoryDropdownMenuViewState)
 }

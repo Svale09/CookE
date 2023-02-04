@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RecipeDao {
     fun getRecipes(): Flow<List<Recipe>>
-    fun getRecipesByCategory(categoryId: String): Flow<List<Recipe>>
+    fun getRecipesByCategory(category: String): Flow<List<Recipe>>
     fun insertRecipe(inputRecipe: InputRecipe)
     fun removeRecipe(recipeId: String)
-    fun toggleFavoriteRecipe(recipeId: String)
+    fun toggleIsFavorite(recipe: Recipe)
 }

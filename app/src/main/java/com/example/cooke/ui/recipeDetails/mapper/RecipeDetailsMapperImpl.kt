@@ -7,9 +7,9 @@ class RecipeDetailsMapperImpl : RecipeDetailsMapper {
     override fun toRecipeDetailsViewStateMapper(recipe: Recipe) = RecipeDetailsViewState(
         id = recipe.id,
         title = recipe.title,
-        imageUrl = recipe.imageUrl,
+        imageUrl = recipe.imageURI,
         ingridients = recipe.ingridients,
-        preparationTime = recipe.preparationTime,
+        preparationTime = recipe.duration,
         preparation = recipe.preparation,
         difficulty = recipe.difficulty,
         isFavorite = recipe.isFavorite

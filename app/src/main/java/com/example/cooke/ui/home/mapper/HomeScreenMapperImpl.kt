@@ -27,7 +27,7 @@ class HomeScreenMapperImpl : HomeScreenMapper {
             RecipeCardViewState(
                 id = it.id,
                 title = it.title,
-                imageUrl = it.imageUrl,
+                imageUrl = it.imageURI,
                 isFavorite = it.isFavorite
             )
         }

@@ -1,5 +1,7 @@
 package com.example.cooke.ui.recipeInput
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -11,15 +13,18 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.example.cooke.R
 import com.example.cooke.model.RecipeCategory
 import com.example.cooke.ui.component.DropdownMenu
@@ -55,45 +60,47 @@ val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewSta
 )
 
 data class InputRecipe(
-    var title: String,
-    var difficulty: String,
-    var ingridients: List<String>,
-    var preparation: List<String>,
-    var isFavorite: Boolean,
-    var duration: Float,
-    //var image: Image,
-    var category: String
+    var title: String = "",
+    var difficulty: String = "",
+    var ingridients: List<String> = emptyList(),
+    var preparation: List<String> = emptyList(),
+    var isFavorite: Boolean = false,
+    var duration: Float = -1.toFloat(),
+    var imageURI: String = "",
+    var category: String = ""
 )
 
 @Composable
 fun RecipeInputRoute() {
-    RecipeInputScreen()
+    RecipeInputScreen(InputRecipe())
 }
 
 @Composable
-fun RecipeInputScreen() {
+fun RecipeInputScreen(inputRecipe: InputRecipe) {
+    var selectedImage by remember { mutableStateOf(inputRecipe.imageURI) }
     Scaffold(
         content = { padding ->
             Box(modifier = Modifier.fillMaxSize()) {
-                RecipeInputScreenBody(
-                )
+                RecipeInputScreenBody(inputRecipe)
                 Button(
                     onClick = {
-                        saveRecipe(
-                            inputRecipe = InputRecipe(
-                                title = RecipeInputViewState.titleInputFieldState.text,
-                                ingridients = RecipeInputViewState.ingridientsInputFieldViewState.text.split(
-                                    ","
-                                ).toList(),
-                                duration = RecipeInputViewState.durationInputFieldViewState.text.toFloat(),
-                                preparation = RecipeInputViewState.preparationInputFieldViewState.text.split(
-                                    "\n"
-                                ).toList(),
-                                isFavorite = false,
-                                difficulty = RecipeInputViewState.difficultyDropdownMenuViewState.pickedOption,
-                                category = RecipeInputViewState.categoryDropdownMenuViewState.pickedOption
-                            )
-                        )
+                        inputRecipe.title = RecipeInputViewState.titleInputFieldState.text
+                        inputRecipe.ingridients =
+                            RecipeInputViewState.ingridientsInputFieldViewState.text.split(
+                                ","
+                            ).toList()
+                        inputRecipe.duration =
+                            RecipeInputViewState.durationInputFieldViewState.text.toFloat()
+                        inputRecipe.preparation =
+                            RecipeInputViewState.preparationInputFieldViewState.text.split(
+                                "\n"
+                            ).toList()
+                        inputRecipe.isFavorite = false
+                        inputRecipe.difficulty =
+                            RecipeInputViewState.difficultyDropdownMenuViewState.pickedOption
+                        inputRecipe.category =
+                            RecipeInputViewState.categoryDropdownMenuViewState.pickedOption
+                        saveRecipe(inputRecipe)
                     },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
@@ -118,13 +125,18 @@ fun RecipeInputScreen() {
 @Preview
 @Composable
 private fun RecipeInputScreenPreview() {
-    RecipeInputScreen()
+    RecipeInputScreen(inputRecipe = InputRecipe())
 }
 
 @Composable
 fun RecipeInputScreenBody(
-    /*onSaveRecipe: (Recipe) -> Unit*/
+    inputRecipe: InputRecipe,
 ) {
+    var selectedImage by remember { mutableStateOf(inputRecipe.imageURI) }
+    val galleryLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
+            selectedImage = uri.toString()
+        }
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -177,10 +189,13 @@ fun RecipeInputScreenBody(
             color = Color(0xff3f001b)
         )
         Button(
-            onClick = { },
+            onClick = {
+                galleryLauncher.launch("image/*")
+                inputRecipe.imageURI = selectedImage
+            },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
-                .padding(end = 10.dp, start = 10.dp, top = 10.dp, bottom = 80.dp)
+                .padding(10.dp)
                 .height(60.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xfff3dde1)),
             content = {
@@ -203,7 +218,18 @@ fun RecipeInputScreenBody(
                 }
             }
         )
+        Image(
+            painter = rememberAsyncImagePainter(model = selectedImage),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .padding(horizontal = 10.dp)
+                .padding(bottom = 80.dp)
+                .size(200.dp)
+                .clip(RoundedCornerShape(10.dp))
+        )
     }
+    inputRecipe.imageURI = selectedImage
 }
 
 @Composable

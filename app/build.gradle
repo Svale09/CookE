@@ -74,5 +74,7 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    implementation 'androidx.activity:activity-ktx:1.6.1'
     //implementation 'org.jetbrains.kotlin:kotlinx-coroutines-play-services:1.1.1'
 }

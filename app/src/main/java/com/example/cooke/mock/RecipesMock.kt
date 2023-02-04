@@ -1,7 +1,6 @@
 package com.example.cooke.mock
 
 import com.example.cooke.model.Recipe
-import com.example.cooke.model.RecipeDetails
 
 object RecipesMock {
     fun getRecipesList(): List<Recipe> = listOf(
@@ -9,77 +8,95 @@ object RecipesMock {
             id = 1,
             title = "German Chocolate Cupcakes",
             imageUrl = "https://www.allrecipes.com/thmb/bdPHwED-UZ4MJNPmNhzSqvp_gS4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/german-chocolate-cupcakes-ddmfs-beauty-3x4-1-3275fd7de389429eb2865cfc5cc13c50.jpg",
-            cookTime = 1.5.toFloat(),
+            preparationTime = 1.5.toFloat(),
             difficulty = "Amateur",
-            isFavorite = false
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             2,
             "New York Cheesecake",
             "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1",
-            cookTime = 2.5.toFloat(),
+            preparationTime = 2.5.toFloat(),
             difficulty = "Intermediate",
-            true
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             3,
             "Medovik",
             "https://www.tasteatlas.com/images/recipes/bb3fd3423ab64f90b9507ac7bdb47edd.jpg?mw=910",
-            3.0.toFloat(),
-            "Pro",
-            false
+            preparationTime = 3.0.toFloat(),
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             4,
             "Peanut Butter Chocolate Chip Cookies",
             "https://handletheheat.com/wp-content/uploads/2019/02/Peanut-Butter-Chocolate-Chip-Cookies-1-550x550.jpg",
-            1.0.toFloat(),
-            "Amateur",
-            true
+            preparationTime = 1.0.toFloat(),
+            difficulty = "Amateur",
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             5,
             "San Sebastian Cheesecake",
             "https://thebusybaker.ca/wp-content/uploads/2021/09/san-sebastian-cheesecake-6.jpg",
-            2.0.toFloat(),
-            "Pro",
-            false
+            preparationTime = 2.0.toFloat(),
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             6,
             "Ferrero Rocher Cake",
             "https://richanddelish.com/wp-content/uploads/2022/08/Ferrero-Rocher-Cake-1.jpg",
-            2.5.toFloat(),
-            "intermediate",
-            true
+            preparationTime = 2.5.toFloat(),
+            difficulty = "intermediate",
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             7,
             "Cinnamon rolls",
             "https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Cinnamon-rolls-9fb9daa.jpg?quality=90&webp=true&resize=300,272",
-            2.0.toFloat(),
+            preparationTime = 2.0.toFloat(),
             difficulty = "Intermediate",
-            isFavorite = false
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             8,
             "Salted caramel brownies",
             "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/salted-caramel-brownies-e067f0c.jpg?quality=90&webp=true&resize=300,272",
-            1.25.toFloat(),
-            "Easy",
-            false
+            preparationTime = 1.25.toFloat(),
+            difficulty = "Easy",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         ),
         Recipe(
             9,
             "Vanilla Creme Brulee",
             "https://static01.nyt.com/images/2017/12/13/dining/15COOKING-CREME-BRULEE1/15COOKING-CREME-BRULEE1-master768.jpg?w=1280&q=75",
-            2.75.toFloat(),
-            "Pro",
-            false
+            preparationTime = 2.75.toFloat(),
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
         )
     )
 
-    fun getRecipeDetails(): RecipeDetails = RecipeDetails(
+    fun getRecipeDetails(): Recipe = Recipe(
         id = 1,
         title = "Tiramisu",
         imageUrl = "https://static01.nyt.com/images/2017/04/05/dining/05COOKING-TIRAMISU1/05COOKING-TIRAMISU1-master768.jpg?w=1280&q=75",

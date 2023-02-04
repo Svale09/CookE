@@ -11,6 +11,7 @@ class RecipeInputScreenMapperImpl : RecipeInputScreenMapper {
         preparationInputFieldViewState: InputFieldViewState,
         durationInputFieldViewState: InputFieldViewState,
         difficultyDropdownMenuViewState: DropdownMenuViewState,
+        categoryDropdownMenuViewState: DropdownMenuViewState,
         images: List<Image>
     ) = RecipeInputScreenViewState(
         InputFieldViewState(
@@ -33,7 +34,8 @@ class RecipeInputScreenMapperImpl : RecipeInputScreenMapper {
             durationInputFieldViewState.placeholder,
             ""
         ),
-        DropdownMenuViewState(difficultyDropdownMenuViewState.options),
+        DropdownMenuViewState(difficultyDropdownMenuViewState.options, ""),
+        DropdownMenuViewState(categoryDropdownMenuViewState.options, ""),
         emptyList()
     )
 }

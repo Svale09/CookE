@@ -18,9 +18,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cooke.ui.recipeInput.RecipeInputViewState
+import com.example.cooke.ui.recipeInput.mapper.DropdownMenuViewState
 
 @Composable
-fun DropdownMenu(items: List<String>, modifier: Modifier) {
+fun DropdownMenu(dropdownMenuViewState: DropdownMenuViewState, modifier: Modifier) {
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(0) }
     Box(
@@ -30,7 +31,7 @@ fun DropdownMenu(items: List<String>, modifier: Modifier) {
             .border(BorderStroke(1.dp, Color.Gray), shape = RoundedCornerShape(15.dp))
     ) {
         Text(
-            items[selectedIndex],
+            dropdownMenuViewState.options[selectedIndex],
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
@@ -47,13 +48,13 @@ fun DropdownMenu(items: List<String>, modifier: Modifier) {
                 .padding(horizontal = 18.dp)
 
         ) {
-            items.forEachIndexed { index, s ->
+            dropdownMenuViewState.options.forEachIndexed { index, s ->
                 DropdownMenuItem(onClick = {
                     selectedIndex = index
                     expanded = false
                 }) {
-
                     Text(text = s)
+                    dropdownMenuViewState.pickedOption = dropdownMenuViewState.options[index]
                 }
             }
         }
@@ -64,7 +65,7 @@ fun DropdownMenu(items: List<String>, modifier: Modifier) {
 @Composable
 private fun DropdownMenuPreview() {
     com.example.cooke.ui.component.DropdownMenu(
-        items = RecipeInputViewState.difficultyDropdownMenuViewState.options,
-        modifier = Modifier
+        dropdownMenuViewState = RecipeInputViewState.difficultyDropdownMenuViewState,
+        modifier = Modifier,
     )
 }

@@ -1,19 +1,24 @@
 package com.example.cooke.ui.recipeInput.FirebaseExample
 
-import com.example.cooke.model.Recipe
-import com.example.cooke.model.RecipeDetails
+import android.util.Log
+import com.example.cooke.ui.recipeInput.InputRecipe
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
-private val recipeCollectionRef = Firebase.firestore.collection("recipes")
+private val recipeCollectionRef = Firebase.firestore.collection("test")
 
-private fun saveRecipe(recipeDetails: RecipeDetails) = CoroutineScope(Dispatchers.IO).launch {
+fun saveRecipe(inputRecipe: InputRecipe) = CoroutineScope(Dispatchers.IO).launch {
     try {
-        recipeCollectionRef.add(recipeDetails).await()
-    } catch (e: Exception){
+        recipeCollectionRef.add(inputRecipe).await()
+        withContext(Dispatchers.Main) {
+            Log.d("Firebase add", "Success")
+        }
+    } catch (e: Exception) {
+        Log.d("Firebase add", e.message.toString())
     }
 }

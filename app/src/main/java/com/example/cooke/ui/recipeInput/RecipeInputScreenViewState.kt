@@ -10,5 +10,6 @@ data class RecipeInputScreenViewState(
     val preparationInputFieldViewState: InputFieldViewState,
     val durationInputFieldViewState: InputFieldViewState,
     val difficultyDropdownMenuViewState: DropdownMenuViewState,
+    val categoryDropdownMenuViewState: DropdownMenuViewState,
     val images: List<Image>
 )

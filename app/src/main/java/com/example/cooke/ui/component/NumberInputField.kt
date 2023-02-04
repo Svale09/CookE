@@ -45,6 +45,7 @@ fun NumberInputField(inputFieldViewState: InputFieldViewState, modifier: Modifie
             )
         )
     }
+    inputFieldViewState.text = text
 }
 
 @Preview

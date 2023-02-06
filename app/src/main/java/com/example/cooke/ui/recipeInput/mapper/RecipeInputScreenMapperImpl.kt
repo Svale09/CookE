@@ -17,22 +17,18 @@ class RecipeInputScreenMapperImpl : RecipeInputScreenMapper {
         InputFieldViewState(
             titleInputFieldViewState.title,
             titleInputFieldViewState.placeholder,
-            ""
         ),
         InputFieldViewState(
             ingridientsInputFieldViewState.title,
             ingridientsInputFieldViewState.placeholder,
-            ""
         ),
         InputFieldViewState(
             preparationInputFieldViewState.title,
             preparationInputFieldViewState.placeholder,
-            ""
         ),
         InputFieldViewState(
             durationInputFieldViewState.title,
             durationInputFieldViewState.placeholder,
-            ""
         ),
         DropdownMenuViewState(difficultyDropdownMenuViewState.options, ""),
         DropdownMenuViewState(categoryDropdownMenuViewState.options, ""),

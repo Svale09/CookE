@@ -16,7 +16,8 @@ import com.example.cooke.ui.theme.SectionTitle
 fun TitledDropdownMenu(
     modifier: Modifier,
     title: String,
-    dropdownMenuViewState: DropdownMenuViewState
+    dropdownMenuViewState: DropdownMenuViewState,
+    onValueChange: (String) -> Unit
 ) {
     Column(modifier = modifier) {
         Text(
@@ -28,6 +29,7 @@ fun TitledDropdownMenu(
         DropdownMenu(
             dropdownMenuViewState = dropdownMenuViewState,
             modifier = Modifier.padding(vertical = 6.dp),
+            onValueChange = onValueChange
         )
     }
 }
@@ -35,5 +37,10 @@ fun TitledDropdownMenu(
 @Preview
 @Composable
 private fun TitledDropdownMenuPreview() {
-    TitledDropdownMenu(modifier = Modifier, "", RecipeInputViewState.categoryDropdownMenuViewState)
+    TitledDropdownMenu(
+        modifier = Modifier,
+        "",
+        RecipeInputViewState.categoryDropdownMenuViewState,
+        {}
+    )
 }

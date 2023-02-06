@@ -1,7 +1,7 @@
 package com.example.cooke.ui.recipeDetails
 
 data class RecipeDetailsViewState(
-    val id: Int,
+    val id: String,
     val title: String,
     val imageUrl: String,
     val ingridients: List<String>,

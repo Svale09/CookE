@@ -21,7 +21,11 @@ import com.example.cooke.ui.recipeInput.RecipeInputViewState
 import com.example.cooke.ui.recipeInput.mapper.DropdownMenuViewState
 
 @Composable
-fun DropdownMenu(dropdownMenuViewState: DropdownMenuViewState, modifier: Modifier) {
+fun DropdownMenu(
+    dropdownMenuViewState: DropdownMenuViewState,
+    modifier: Modifier,
+    onValueChange: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(0) }
     Box(
@@ -46,7 +50,6 @@ fun DropdownMenu(dropdownMenuViewState: DropdownMenuViewState, modifier: Modifie
                     Color(0xfff3dde1)
                 )
                 .padding(horizontal = 18.dp)
-
         ) {
             dropdownMenuViewState.options.forEachIndexed { index, s ->
                 DropdownMenuItem(onClick = {
@@ -54,7 +57,7 @@ fun DropdownMenu(dropdownMenuViewState: DropdownMenuViewState, modifier: Modifie
                     expanded = false
                 }) {
                     Text(text = s)
-                    dropdownMenuViewState.pickedOption = dropdownMenuViewState.options[index]
+                    onValueChange(dropdownMenuViewState.options[index])
                 }
             }
         }
@@ -67,5 +70,6 @@ private fun DropdownMenuPreview() {
     com.example.cooke.ui.component.DropdownMenu(
         dropdownMenuViewState = RecipeInputViewState.difficultyDropdownMenuViewState,
         modifier = Modifier,
+        {}
     )
 }

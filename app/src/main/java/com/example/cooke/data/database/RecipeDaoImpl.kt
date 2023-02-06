@@ -53,10 +53,10 @@ class RecipeDaoImpl(private val snapshotMapper: SnapshotMapper) : RecipeDao {
         val data = hashMapOf(
             "title" to inputRecipe.title,
             "imageURI" to inputRecipe.imageURI,
-            "ingridients" to inputRecipe.ingridients,
-            "preparation" to inputRecipe.preparation,
+            "ingridients" to inputRecipe.ingridients.split("\n").toList(),
+            "preparation" to inputRecipe.preparation.split("\n").toList(),
             "isFavorite" to inputRecipe.isFavorite,
-            "duration" to inputRecipe.duration,
+            "duration" to inputRecipe.duration.toFloat(),
             "difficulty" to inputRecipe.difficulty,
             "category" to inputRecipe.category
         )

@@ -30,6 +30,7 @@ import androidx.navigation.NavDestination
 import com.example.cooke.navigation.RECIPE_INPUT_ROUTE
 import com.example.cooke.ui.favorites.FavoritesRoute
 import com.example.cooke.ui.recipeInput.RecipeInputRoute
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen() {
@@ -95,7 +96,7 @@ fun MainScreen() {
                     )
                 }
                 composable(NavigationItem.RecipeInputDestination.route){
-                    RecipeInputRoute()
+                    RecipeInputRoute(recipeInputViewModel = getViewModel())
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
                     FavoritesRoute(

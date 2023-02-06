@@ -21,14 +21,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.cooke.R
 import com.example.cooke.model.RecipeCategory
-import com.example.cooke.ui.component.*
-import com.example.cooke.ui.recipeInput.FirebaseExample.saveRecipe
+import com.example.cooke.ui.component.InputField
+import com.example.cooke.ui.component.InputFieldViewState
+import com.example.cooke.ui.component.NumberInputField
+import com.example.cooke.ui.component.TitledDropdownMenu
 import com.example.cooke.ui.recipeInput.mapper.DropdownMenuViewState
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapper
 import com.example.cooke.ui.recipeInput.mapper.RecipeInputScreenMapperImpl
@@ -38,10 +39,10 @@ import com.example.cooke.ui.theme.Spacing
 private val RecipeInputViewStateMapper: RecipeInputScreenMapper = RecipeInputScreenMapperImpl()
 
 val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewState(
-    InputFieldViewState("Naziv", "Unesi naziv kolača", ""),
-    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke", ""),
-    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme", ""),
-    InputFieldViewState("Vrijeme pripreme", "Unesi vrijeme pripreme", ""),
+    InputFieldViewState("Naziv", "Unesi naziv kolača"),
+    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke"),
+    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme"),
+    InputFieldViewState("Vrijeme pripreme", "Unesi vrijeme pripreme"),
     DropdownMenuViewState(listOf("Amateur", "Home Chef", "Pro"), ""),
     DropdownMenuViewState(
         listOf(
@@ -57,32 +58,56 @@ val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewSta
 )
 
 @Composable
-fun RecipeInputRoute() {
-    RecipeInputScreen(InputRecipe())
+fun RecipeInputRoute(recipeInputViewModel: RecipeInputViewModel) {
+    RecipeInputScreen(
+        onTitleChange = { title -> recipeInputViewModel.onTitleChange(title) },
+        onDifficultyChange = { difficulty -> recipeInputViewModel.onDifficultyChange(difficulty) },
+        onIngridientsChange = { ingridients -> recipeInputViewModel.onIngridientsChange(ingridients) },
+        onPreparationChange = { preparation -> recipeInputViewModel.onPreparationChange(preparation) },
+        onDurationChange = { duration -> recipeInputViewModel.onDurationChange(duration) },
+        onImageURIChange = { imageURI -> recipeInputViewModel.onImageURIChange(imageURI) },
+        onCategoryChange = { category -> recipeInputViewModel.onCateogryChange(category) },
+        addRecipe = { recipeInputViewModel.addRecipe() },
+        inputTitle = recipeInputViewModel.inputRecipe.title,
+        inputPreperation = recipeInputViewModel.inputRecipe.preparation,
+        inputIngridients = recipeInputViewModel.inputRecipe.ingridients,
+        inputDuration = recipeInputViewModel.inputRecipe.duration
+    )
 }
 
 @Composable
-fun RecipeInputScreen(inputRecipe: InputRecipe) {
+fun RecipeInputScreen(
+    onTitleChange: (String) -> Unit,
+    onDifficultyChange: (String) -> Unit,
+    onIngridientsChange: (String) -> Unit,
+    onPreparationChange: (String) -> Unit,
+    onDurationChange: (String) -> Unit,
+    onImageURIChange: (String) -> Unit,
+    onCategoryChange: (String) -> Unit,
+    addRecipe: () -> Unit,
+    inputTitle: String,
+    inputPreperation: String,
+    inputIngridients: String,
+    inputDuration: String
+) {
     Scaffold(
         content = { padding ->
             Box(modifier = Modifier.fillMaxSize()) {
-                RecipeInputScreenBody(inputRecipe)
+                RecipeInputScreenBody(
+                    onTitleChange,
+                    onDifficultyChange,
+                    onIngridientsChange,
+                    onPreparationChange,
+                    onDurationChange,
+                    onImageURIChange,
+                    onCategoryChange,
+                    inputTitle,
+                    inputPreperation,
+                    inputIngridients,
+                    inputDuration
+                )
                 Button(
-                    onClick = {
-                        inputRecipe.title = RecipeInputViewState.titleInputFieldState.text
-                        inputRecipe.ingridients =
-                            RecipeInputViewState.ingridientsInputFieldViewState.text.split(",").toList()
-                        inputRecipe.duration =
-                            RecipeInputViewState.durationInputFieldViewState.text.toFloat()
-                        inputRecipe.preparation =
-                            RecipeInputViewState.preparationInputFieldViewState.text.split("\n").toList()
-                        inputRecipe.isFavorite = false
-                        inputRecipe.difficulty =
-                            RecipeInputViewState.difficultyDropdownMenuViewState.pickedOption
-                        inputRecipe.category =
-                            RecipeInputViewState.categoryDropdownMenuViewState.pickedOption
-                        saveRecipe(inputRecipe)
-                    },
+                    onClick = { addRecipe() },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -103,20 +128,32 @@ fun RecipeInputScreen(inputRecipe: InputRecipe) {
 }
 
 
-@Preview
+/*@Preview
 @Composable
-private fun RecipeInputScreenPreview() {
-    RecipeInputScreen(inputRecipe = InputRecipe())
-}
+private fun RecipeInputScreenPreview(
+) {
+    RecipeInputScreen()
+}*/
 
 @Composable
 fun RecipeInputScreenBody(
-    inputRecipe: InputRecipe,
+    onTitleChange: (String) -> Unit,
+    onDifficultyChange: (String) -> Unit,
+    onIngridientsChange: (String) -> Unit,
+    onPreparationChange: (String) -> Unit,
+    onDurationChange: (String) -> Unit,
+    onImageURIChange: (String) -> Unit,
+    onCategoryChange: (String) -> Unit,
+    inputTitle: String,
+    inputPreperation: String,
+    inputIngridients: String,
+    inputDuration: String
 ) {
-    var selectedImage by remember { mutableStateOf(inputRecipe.imageURI) }
+    var selectedImage by remember { mutableStateOf("") }
     val galleryLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
             selectedImage = uri.toString()
+            onImageURIChange(uri.toString())
         }
     val scrollState = rememberScrollState()
     Column(
@@ -129,19 +166,27 @@ fun RecipeInputScreenBody(
     {
         InputField(
             inputFieldViewState = RecipeInputViewState.titleInputFieldState,
-            modifier = Modifier.padding(vertical = 6.dp)
+            modifier = Modifier.padding(vertical = 6.dp),
+            onValueChange = onTitleChange,
+            text = inputTitle
         )
         InputField(
             inputFieldViewState = RecipeInputViewState.ingridientsInputFieldViewState,
-            modifier = Modifier.padding(vertical = 6.dp)
+            modifier = Modifier.padding(vertical = 6.dp),
+            onValueChange = onIngridientsChange,
+            text = inputIngridients
         )
         InputField(
             inputFieldViewState = RecipeInputViewState.preparationInputFieldViewState,
-            modifier = Modifier.padding(vertical = 6.dp)
+            modifier = Modifier.padding(vertical = 6.dp),
+            onValueChange = onPreparationChange,
+            text = inputPreperation
         )
         NumberInputField(
             inputFieldViewState = RecipeInputViewState.durationInputFieldViewState,
-            modifier = Modifier.padding(vertical = 6.dp)
+            modifier = Modifier.padding(vertical = 6.dp),
+            onValueChange = onDurationChange,
+            text = inputDuration
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -152,14 +197,16 @@ fun RecipeInputScreenBody(
                 TitledDropdownMenu(
                     modifier = Modifier,
                     title = "Težina pripreme",
-                    dropdownMenuViewState = RecipeInputViewState.difficultyDropdownMenuViewState
+                    dropdownMenuViewState = RecipeInputViewState.difficultyDropdownMenuViewState,
+                    onValueChange = onDifficultyChange
                 )
             }
             item {
                 TitledDropdownMenu(
                     modifier = Modifier,
                     title = "Kategorija",
-                    dropdownMenuViewState = RecipeInputViewState.categoryDropdownMenuViewState
+                    dropdownMenuViewState = RecipeInputViewState.categoryDropdownMenuViewState,
+                    onValueChange = onCategoryChange
                 )
             }
         }
@@ -172,7 +219,7 @@ fun RecipeInputScreenBody(
         Button(
             onClick = {
                 galleryLauncher.launch("image/*")
-                inputRecipe.imageURI = selectedImage
+                //inputRecipe.imageURI = selectedImage
             },
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
@@ -210,5 +257,4 @@ fun RecipeInputScreenBody(
                 .clip(RoundedCornerShape(10.dp))
         )
     }
-    inputRecipe.imageURI = selectedImage
 }

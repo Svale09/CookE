@@ -24,15 +24,15 @@ import com.example.cooke.ui.theme.SectionTitle
 data class InputFieldViewState(
     val title: String,
     val placeholder: String,
-    var text: String
 )
 
 @Composable
 fun InputField(
     inputFieldViewState: InputFieldViewState,
+    onValueChange: (value: String) -> Unit,
+    text: String,
     modifier: Modifier
 ) {
-    var text by rememberSaveable { mutableStateOf("") }
     Column(
         modifier.wrapContentSize(),
         horizontalAlignment = Alignment.Start
@@ -45,7 +45,7 @@ fun InputField(
         )
         OutlinedTextField(
             value = text,
-            onValueChange = { text = it },
+            onValueChange = { onValueChange(it) },
             placeholder = { Text(text = inputFieldViewState.placeholder) },
             modifier = Modifier
                 .padding(vertical = 5.dp, horizontal = 10.dp)
@@ -57,7 +57,6 @@ fun InputField(
             )
         )
     }
-    inputFieldViewState.text = text
 }
 
 @Preview
@@ -67,8 +66,9 @@ private fun PreviewInputField() {
         inputFieldViewState = InputFieldViewState(
             "Naziv",
             "Unesi naziv kolača",
-            ""
         ),
-        modifier = Modifier
+        modifier = Modifier,
+        onValueChange = {},
+        text = ""
     )
 }

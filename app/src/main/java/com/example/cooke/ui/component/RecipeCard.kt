@@ -19,7 +19,7 @@ import coil.compose.AsyncImage
 
 
 data class RecipeCardViewState(
-    val id: Int,
+    val id: String,
     val title: String,
     val imageUrl: String?,
     val isFavorite: Boolean
@@ -78,7 +78,7 @@ fun RecipeCard(
 private fun RecipeCardPreview() {
     RecipeCard(
         recipeCardViewState = RecipeCardViewState(
-            id = 1,
+            id = "1",
             title = "Black forrest gato cake",
             imageUrl = "https://podravkaiovariations.azureedge.net/b592273e-63bb-11eb-a9a0-0242ac120018/v/f2b1f6a6-64bc-11eb-b6c2-0242ac130010/1024x768-f2b21802-64bc-11eb-a115-0242ac130010.webp",
             isFavorite = false,

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -41,7 +42,7 @@ fun InputField(
             text = inputFieldViewState.title,
             style = SectionTitle,
             modifier = Modifier.padding(horizontal = 18.dp),
-            color = Color(0xff3f001b)
+            color = MaterialTheme.colors.secondary
         )
         OutlinedTextField(
             value = text,
@@ -53,7 +54,7 @@ fun InputField(
             shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color(0xffcc8d9d),
-                backgroundColor = Color.White
+                backgroundColor = MaterialTheme.colors.background
             )
         )
     }

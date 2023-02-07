@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -48,7 +49,7 @@ fun RecipeCategoryLabel(
                 },
                 fontSize = 18.sp,
                 fontWeight = if (categoryLabelViewState.isSelected) FontWeight.Bold else FontWeight.Normal,
-                color = if (categoryLabelViewState.isSelected) Color(0xff3f001b) else Color.Gray,
+                color = if (categoryLabelViewState.isSelected) MaterialTheme.colors.secondary else Color.Gray,
             )
             Spacer(modifier = Modifier.height(4.dp))
             if (categoryLabelViewState.isSelected) {
@@ -56,7 +57,7 @@ fun RecipeCategoryLabel(
                     modifier = Modifier
                         .height(3.dp)
                         .fillMaxWidth()
-                        .background(color = Color(0xff3f001b))
+                        .background(MaterialTheme.colors.secondary)
                 )
             }
         }

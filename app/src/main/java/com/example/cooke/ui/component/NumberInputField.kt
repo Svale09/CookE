@@ -1,10 +1,12 @@
 package com.example.cooke.ui.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -32,7 +34,12 @@ fun NumberInputField(
         OutlinedTextField(
             value = text.toString(),
             onValueChange = { onValueChange(it) },
-            placeholder = { Text(text = inputFieldViewState.placeholder) },
+            placeholder = {
+                Text(
+                    text = inputFieldViewState.placeholder,
+                    color = MaterialTheme.colors.background
+                )
+            },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier
                 .padding(vertical = 5.dp, horizontal = 10.dp)
@@ -40,7 +47,7 @@ fun NumberInputField(
             shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color(0xffcc8d9d),
-                backgroundColor = Color.White
+                backgroundColor = MaterialTheme.colors.background
             )
         )
     }

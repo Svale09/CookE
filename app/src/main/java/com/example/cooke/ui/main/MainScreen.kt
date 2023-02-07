@@ -49,6 +49,7 @@ fun MainScreen() {
     }
     val showBackIcon = !showBottomBar
     Scaffold(
+        backgroundColor = MaterialTheme.colors.background,
         topBar = {
             TopBar(
                 navigationIcon = {
@@ -136,7 +137,7 @@ private fun TopBar(
         modifier = Modifier
             .height(60.dp)
             .fillMaxWidth()
-            .background(Color(0xffF06292)),
+            .background(MaterialTheme.colors.primary),
         contentAlignment = Alignment.CenterStart
     ) {
         navigationIcon?.invoke(Modifier.align(Alignment.CenterStart))
@@ -173,7 +174,8 @@ private fun BottomNavigationBar(
     currentDestination: NavDestination?
 ) {
     BottomNavigation(
-        backgroundColor = MaterialTheme.colors.background
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 50.dp
     ) {
         destinations.forEach { destination ->
             BottomNavigationItem(

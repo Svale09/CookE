@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -115,19 +112,20 @@ fun RecipeInputScreen(
                         addRecipe()
                         navigateToHome()
                     },
-                    shape = RoundedCornerShape(20.dp),
+                    elevation = ButtonDefaults.elevation(defaultElevation = 15.dp),
+                    shape = RoundedCornerShape(30.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                         .padding(Spacing().small),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xfff06292))
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primaryVariant)
                 ) {
                     Text(
                         text = "Dodaj recept",
                         modifier = Modifier.padding(10.dp),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        color = MaterialTheme.colors.secondary
                     )
                 }
             }
@@ -221,7 +219,7 @@ fun RecipeInputScreenBody(
             text = "Slike",
             style = SectionTitle,
             modifier = Modifier.padding(horizontal = 18.dp),
-            color = Color(0xff3f001b)
+            color = MaterialTheme.colors.secondary
         )
         Button(
             onClick = {
@@ -232,7 +230,7 @@ fun RecipeInputScreenBody(
             modifier = Modifier
                 .padding(10.dp)
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xfff3dde1)),
+            colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primaryVariant),
             content = {
                 Row(
                     modifier = Modifier.wrapContentWidth(),

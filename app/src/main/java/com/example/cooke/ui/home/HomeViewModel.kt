@@ -16,28 +16,40 @@ class HomeViewModel(
     private val homeScreenMapper: HomeScreenMapper
 ) : ViewModel() {
 
-    val data: StateFlow<HomeScreenViewState> = recipeRepository.recipes.map { recipes ->
-        homeScreenMapper.toHomeScreenViewState(
-            recipeCategories = listOf(
-                RecipeCategory.FRUIT,
-                RecipeCategory.NUTS,
-                RecipeCategory.DRY,
-                RecipeCategory.CREAM,
-                RecipeCategory.COOKIES,
-                RecipeCategory.CAKES
-            ),
-            recipes = recipes,
-            selectedRecipeCategory = RecipeCategory.CHOCOLATE
-        )
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        initialValue = HomeScreenViewState(
-            recipeCategories = emptyList(),
-            recipes = emptyList()
-        )
-    )
+    private val currentCategory: MutableStateFlow<RecipeCategory> =
+        MutableStateFlow(RecipeCategory.ALL)
 
+    val data: StateFlow<HomeScreenViewState> =
+        currentCategory.flatMapLatest {
+            recipeRepository.recipesByCategory(it).map { recipes ->
+                homeScreenMapper.toHomeScreenViewState(
+                    recipeCategories = listOf(
+                        RecipeCategory.ALL,
+                        RecipeCategory.CHOCOLATE,
+                        RecipeCategory.FRUIT,
+                        RecipeCategory.NUTS,
+                        RecipeCategory.DRY,
+                        RecipeCategory.CREAM,
+                        RecipeCategory.COOKIES,
+                        RecipeCategory.CAKES
+                    ),
+                    recipes = recipes,
+                    selectedRecipeCategory = it
+                )
+            }
+        }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                initialValue = HomeScreenViewState(
+                    recipeCategories = emptyList(),
+                    recipes = emptyList()
+                )
+            )
+
+    fun changeCategory(category: RecipeCategory) {
+        currentCategory.update { category }
+    }
 
     fun toggleFavorite(recipeCardViewState: RecipeCardViewState) {
         viewModelScope.launch {

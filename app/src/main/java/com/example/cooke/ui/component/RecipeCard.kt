@@ -31,13 +31,13 @@ fun RecipeCard(
     recipeCardViewState: RecipeCardViewState,
     modifier: Modifier,
     onFavoriteToggle: (RecipeCardViewState) -> Unit,
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
+    onNavigateToRecipeDetails: (String) -> Unit
 ) {
     Card(
         modifier
             .size(200.dp, 180.dp)
             .padding(10.dp)
-            .clickable { onNavigateToRecipeDetails(recipeCardViewState) },
+            .clickable { onNavigateToRecipeDetails(recipeCardViewState.id) },
         elevation = 10.dp
     ) {
         Box(

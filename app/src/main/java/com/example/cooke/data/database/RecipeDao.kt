@@ -5,6 +5,7 @@ import com.example.cooke.ui.recipeInput.InputRecipe
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeDao {
+    fun getRecipeById(recipeId: String): Flow<Recipe>
     fun getRecipes(): Flow<List<Recipe>>
     fun getRecipesByCategory(category: String): Flow<List<Recipe>>
     fun insertRecipe(inputRecipe: InputRecipe)

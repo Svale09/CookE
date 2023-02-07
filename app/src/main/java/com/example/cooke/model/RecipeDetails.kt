@@ -3,6 +3,7 @@ package com.example.cooke.model
 data class Recipe(
     val id: String,
     val title: String,
+    val category: String,
     val imageURI: String,
     val difficulty: String,
     val ingridients: List<String>,

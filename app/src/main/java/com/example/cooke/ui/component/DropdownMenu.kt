@@ -55,9 +55,9 @@ fun DropdownMenu(
                 DropdownMenuItem(onClick = {
                     selectedIndex = index
                     expanded = false
+                    onValueChange(dropdownMenuViewState.options[index])
                 }) {
                     Text(text = s)
-                    onValueChange(dropdownMenuViewState.options[index])
                 }
             }
         }

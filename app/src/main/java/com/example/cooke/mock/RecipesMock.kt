@@ -12,7 +12,8 @@ object RecipesMock {
             difficulty = "Amateur",
             isFavorite = false,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            category = ""
         ),
         Recipe(
             2.toString(),
@@ -22,7 +23,8 @@ object RecipesMock {
             difficulty = "Intermediate",
             isFavorite = true,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             3.toString(),
@@ -32,7 +34,8 @@ object RecipesMock {
             difficulty = "Pro",
             isFavorite = false,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             4.toString(),
@@ -42,7 +45,8 @@ object RecipesMock {
             difficulty = "Amateur",
             isFavorite = true,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             5.toString(),
@@ -53,6 +57,8 @@ object RecipesMock {
             isFavorite = false,
             ingridients = emptyList(),
             preparation = emptyList()
+            ,
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             6.toString(),
@@ -62,7 +68,8 @@ object RecipesMock {
             difficulty = "intermediate",
             isFavorite = true,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             7.toString(),
@@ -72,7 +79,8 @@ object RecipesMock {
             difficulty = "Intermediate",
             isFavorite = false,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             8.toString(),
@@ -82,7 +90,8 @@ object RecipesMock {
             difficulty = "Easy",
             isFavorite = false,
             ingridients = emptyList(),
-            preparation = emptyList()
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
             9.toString(),
@@ -92,6 +101,7 @@ object RecipesMock {
             difficulty = "Pro",
             isFavorite = false,
             ingridients = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1",
             preparation = emptyList()
         )
     )
@@ -121,7 +131,8 @@ object RecipesMock {
             "Dust top layer with remaining tablespoon of cocoa powder. Top with shaved or finely grated chocolate, if desired.",
             "Cover with plastic wrap and let chill in the refrigerator for at least 4 hours (if you can wait 24 hours, all the better) before slicing or scooping to serve."
         ),
-        1.5,
-        false
+        category = "",
+        duration = 1.5,
+        isFavorite = false
     )
 }

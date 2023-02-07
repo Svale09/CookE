@@ -8,38 +8,45 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.cooke.mock.RecipesMock
 import com.example.cooke.ui.component.RecipeCard
 import com.example.cooke.ui.component.RecipeCardViewState
+import com.example.cooke.ui.favorites.di.favoritesModule
 import com.example.cooke.ui.favorites.mapper.FavoritesMapper
 import com.example.cooke.ui.favorites.mapper.FavoritesMapperImpl
 import com.example.cooke.ui.theme.CustomHeader
 import com.example.cooke.ui.theme.Spacing
 
-private val FavoritesViewStateMapper: FavoritesMapper = FavoritesMapperImpl()
-
-val FavoriteRecipesViewState =
-    FavoritesViewStateMapper.tofavoritesViewState(RecipesMock.getRecipesList())
-
 @Composable
 fun FavoritesRoute(
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onToggleFavoriteButton: (RecipeCardViewState) -> Unit
+    onNavigateToRecipeDetails: (String) -> Unit,
+    favoritesViewModel: FavoritesViewModel,
 ) {
-    FavoritesScreen(onNavigateToRecipeDetails,onToggleFavoriteButton)
+
+    val favorites: FavoritesViewState by favoritesViewModel.favorites.collectAsState()
+
+    FavoritesScreen(
+        favorites = favorites,
+        onNavigateToRecipeDetails,
+        onToggleFavoriteButton = { recipeCardViewState: RecipeCardViewState ->
+            favoritesViewModel.toggleFavorite(recipeCardViewState)
+        })
 }
 
 @Composable
 fun FavoritesScreen(
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
+    favorites: FavoritesViewState,
+    onNavigateToRecipeDetails: (String) -> Unit,
     onToggleFavoriteButton: (RecipeCardViewState) -> Unit
 ) {
     Scaffold(
         content = { padding ->
             FavoritesBody(
-                favouriteRecipesViewState = FavoriteRecipesViewState,
+                favouriteRecipesViewState = favorites,
                 onNavigateToRecipeDetails = onNavigateToRecipeDetails,
                 onToggleFavoriteButton = onToggleFavoriteButton,
                 padding = Spacing()
@@ -51,7 +58,7 @@ fun FavoritesScreen(
 @Composable
 fun FavoritesBody(
     favouriteRecipesViewState: FavoritesViewState,
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
+    onNavigateToRecipeDetails: (String) -> Unit,
     onToggleFavoriteButton: (RecipeCardViewState) -> Unit,
     padding: Spacing
 ) {
@@ -82,5 +89,11 @@ fun FavoritesBody(
 @Preview
 @Composable
 private fun FavoritesScreenPreview() {
-    FavoritesScreen(onNavigateToRecipeDetails = {}, onToggleFavoriteButton = {})
+    FavoritesScreen(
+        onNavigateToRecipeDetails = {},
+        onToggleFavoriteButton = {},
+        favorites = FavoritesViewState(
+            emptyList()
+        )
+    )
 }

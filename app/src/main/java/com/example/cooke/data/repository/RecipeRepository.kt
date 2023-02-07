@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
     val recipes: Flow<List<Recipe>>
-    fun recipesByCategory(category: String): Flow<List<Recipe>>
+
+    fun getFavorites() : Flow<List<Recipe>>
+    fun recipesByCategory(category: RecipeCategory): Flow<List<Recipe>>
+    fun recipeById(recipeId: String): Flow<Recipe>
     suspend fun addRecipe(inputRecipe: InputRecipe)
     suspend fun deleteRecipe(recipe: Recipe)
     suspend fun toggleRecipeFavorite (recipeCardViewState: RecipeCardViewState)

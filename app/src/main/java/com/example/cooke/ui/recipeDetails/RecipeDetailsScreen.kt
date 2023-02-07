@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -17,8 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import com.example.cooke.mock.RecipesMock
+import com.example.cooke.model.Recipe
 import com.example.cooke.ui.component.FavouriteButton
 import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapper
@@ -34,17 +38,29 @@ val RecipeDetailsScreenViewState =
 
 @Composable
 fun RecipeDetailsRoute(
-    onFavoriteToggle: (RecipeCardViewState) -> Unit
+    recipeDetailsViewModel: RecipeDetailsViewModel
 ) {
+
+    val recipe: Recipe by recipeDetailsViewModel.recipe.collectAsState()
+
     RecipeDetailsScreen(
-        recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
-        onFavoriteToggle = onFavoriteToggle
+        recipe = recipe,
+        onFavoriteToggle = { recipe ->
+            recipeDetailsViewModel.toggleFavorite(
+                RecipeCardViewState(
+                    recipe.id,
+                    recipe.title,
+                    recipe.imageUrl,
+                    recipe.isFavorite
+                )
+            )
+        }
     )
 }
 
 @Composable
 fun RecipeDetailsScreen(
-    recipeDetailsScreenViewState: RecipeDetailsViewState,
+    recipe: Recipe,
     onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     val scrollState = rememberScrollState()
@@ -58,34 +74,34 @@ fun RecipeDetailsScreen(
                     .padding(Spacing().default)
             ) {
                 RecipeDetailsPoster(
-                    recipeDetailsScreenViewState = recipeDetailsScreenViewState,
+                    recipe = recipe,
                     onFavoriteToggle = onFavoriteToggle
                 )
-                IngridientsList(ingridients = recipeDetailsScreenViewState.ingridients)
-                InstructionsList(instructions = recipeDetailsScreenViewState.preparation)
+                IngridientsList(ingridients = recipe.ingridients)
+                InstructionsList(instructions = recipe.preparation)
             }
         }
     )
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeDetailsScreenPreview() {
     RecipeDetailsScreen(
-        recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
+        recipe = Recipe,
         onFavoriteToggle = {}
     )
-}
+}*/
 
 @Composable
 fun RecipeDetailsPoster(
-    recipeDetailsScreenViewState: RecipeDetailsViewState,
+    recipe: Recipe,
     onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     ConstraintLayout {
         val (image, info) = createRefs()
         AsyncImage(
-            model = recipeDetailsScreenViewState.imageUrl,
+            model = recipe.imageURI,
             contentDescription = "Recipe image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -95,10 +111,10 @@ fun RecipeDetailsPoster(
         )
         FavouriteButton(
             recipeCardViewState = RecipeCardViewState(
-                recipeDetailsScreenViewState.id,
-                recipeDetailsScreenViewState.title,
-                recipeDetailsScreenViewState.imageUrl,
-                recipeDetailsScreenViewState.isFavorite
+                recipe.id,
+                recipe.title,
+                recipe.imageURI,
+                recipe.isFavorite
             ),
             modifier = Modifier.padding(Spacing().small),
             onFavouriteToggle = onFavoriteToggle
@@ -127,7 +143,7 @@ fun RecipeDetailsPoster(
                         .height(50.dp)
                 )
                 Text(
-                    text = recipeDetailsScreenViewState.title,
+                    text = recipe.title,
                     style = CustomHeader,
                     color = Color.White
                 )
@@ -143,12 +159,12 @@ fun RecipeDetailsPoster(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = recipeDetailsScreenViewState.preparationTime.toString() + "h",
+                        text = recipe.duration.toString() + "h",
                         color = Color.White
                     )
                 }
                 Text(
-                    text = "Difficulty: " + recipeDetailsScreenViewState.difficulty, //Umjesto teksta će ići ikona
+                    text = "Difficulty: " + recipe.difficulty, //Umjesto teksta će ići ikona
                     color = Color.White
                 )
             }
@@ -156,13 +172,13 @@ fun RecipeDetailsPoster(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeDetailsPosterPreview() {
     RecipeDetailsPoster(
         recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
         onFavoriteToggle = {})
-}
+}*/
 
 @Composable
 fun IngridientsList(

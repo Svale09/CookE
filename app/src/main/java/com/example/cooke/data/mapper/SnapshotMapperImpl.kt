@@ -3,6 +3,7 @@ package com.example.cooke.data.mapper
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.cooke.model.Recipe
+import com.example.cooke.model.RecipeCategory
 import com.google.firebase.firestore.QuerySnapshot
 
 class SnapshotMapperImpl: SnapshotMapper{
@@ -17,7 +18,8 @@ class SnapshotMapperImpl: SnapshotMapper{
                 preparation = documentSnapshot["preparation"] as List<String>,
                 duration = documentSnapshot["duration"] as Double,
                 difficulty = documentSnapshot["difficulty"] as String,
-                isFavorite = documentSnapshot["isFavorite"] as Boolean
+                isFavorite = documentSnapshot["isFavorite"] as Boolean,
+                category = documentSnapshot["category"] as String
             )
         }
         return data

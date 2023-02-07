@@ -40,12 +40,14 @@ private val RecipeInputViewStateMapper: RecipeInputScreenMapper = RecipeInputScr
 
 val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewState(
     InputFieldViewState("Naziv", "Unesi naziv kolača"),
-    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke"),
-    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme"),
+    InputFieldViewState("Sastojci", "Unesi sve potrebne sastojke (odvojeni novim redom)"),
+    InputFieldViewState("Koraci pripreme", "Unesi korake pripreme (odvojeni novim redom)"),
     InputFieldViewState("Vrijeme pripreme", "Unesi vrijeme pripreme"),
     DropdownMenuViewState(listOf("Amateur", "Home Chef", "Pro"), ""),
     DropdownMenuViewState(
         listOf(
+            RecipeCategory.ALL.toString(),
+            RecipeCategory.CHOCOLATE.toString(),
             RecipeCategory.FRUIT.toString(),
             RecipeCategory.NUTS.toString(),
             RecipeCategory.DRY.toString(),

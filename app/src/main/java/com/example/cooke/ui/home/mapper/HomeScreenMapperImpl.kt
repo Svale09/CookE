@@ -37,6 +37,7 @@ class HomeScreenMapperImpl : HomeScreenMapper {
         selectedRecipeCategory: RecipeCategory
     ) = recipeCategories.map {
         RecipeCategoryLabelViewState(
+            recipeCategory = it,
             itemId = it.ordinal,
             isSelected = it == selectedRecipeCategory,
             categoryText = RecipeCategoryLabelTextViewState.CategoryStringResource(
@@ -48,6 +49,7 @@ class HomeScreenMapperImpl : HomeScreenMapper {
                     RecipeCategory.CREAM -> R.string.CREAM
                     RecipeCategory.COOKIES -> R.string.COOKIES
                     RecipeCategory.CAKES -> R.string.CAKES
+                    else -> R.string.ALL
                 }
             )
         )

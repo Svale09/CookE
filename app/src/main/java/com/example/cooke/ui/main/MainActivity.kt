@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.cooke.data.di.dataModule
+import com.example.cooke.ui.favorites.di.favoritesModule
 import com.example.cooke.ui.home.di.homeModule
 import com.example.cooke.ui.main.di.mainScreenModule
+import com.example.cooke.ui.recipeDetails.di.recipeDetailsModule
 import com.example.cooke.ui.recipeInput.di.recipeInputModule
 import com.example.cooke.ui.theme.CookETheme
 import org.koin.android.ext.koin.androidContext
@@ -27,7 +29,9 @@ class MainActivity : ComponentActivity() {
                 mainScreenModule,
                 dataModule,
                 homeModule,
-                recipeInputModule
+                recipeInputModule,
+                recipeDetailsModule,
+                favoritesModule
             )
         }
         setContent {

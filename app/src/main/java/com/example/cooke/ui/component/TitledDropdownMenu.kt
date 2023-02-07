@@ -2,6 +2,7 @@ package com.example.cooke.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun TitledDropdownMenu(
             text = title,
             style = SectionTitle,
             modifier = Modifier.padding(horizontal = 18.dp),
-            color = Color(0xff3f001b)
+            color = MaterialTheme.colors.secondary
         )
         DropdownMenu(
             dropdownMenuViewState = dropdownMenuViewState,

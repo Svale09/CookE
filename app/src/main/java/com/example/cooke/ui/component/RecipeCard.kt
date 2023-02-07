@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.material.Card
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -56,7 +57,7 @@ fun RecipeCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
-                    .background(Color(0xffffd9e1).copy(alpha = 1f))
+                    .background(MaterialTheme.colors.primaryVariant.copy(alpha = 1f))
                     .align(Alignment.BottomCenter),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -67,7 +68,7 @@ fun RecipeCard(
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    color = Color(0xff3f001b)
+                    color = MaterialTheme.colors.secondary
                 )
             }
         }

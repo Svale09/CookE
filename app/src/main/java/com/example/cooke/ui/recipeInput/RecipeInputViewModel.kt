@@ -5,12 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.cooke.data.repository.RecipeRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.internal.LockFreeLinkedListNode
 import kotlinx.coroutines.launch
 
 class RecipeInputViewModel(
@@ -50,6 +45,13 @@ class RecipeInputViewModel(
     fun addRecipe() {
         viewModelScope.launch {
             recipeRepository.addRecipe(inputRecipe)
+            inputRecipe.title = ""
+            inputRecipe.difficulty = ""
+            inputRecipe.preparation = ""
+            inputRecipe.ingridients = ""
+            inputRecipe.duration = ""
+            inputRecipe.category = ""
+            inputRecipe.imageURI = ""
         }
     }
 }

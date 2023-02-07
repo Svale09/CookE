@@ -26,7 +26,7 @@ val FavoriteRecipesViewState =
 @Composable
 fun FavoritesRoute(
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onToggleFavoriteButton: (Boolean) -> Unit
+    onToggleFavoriteButton: (RecipeCardViewState) -> Unit
 ) {
     FavoritesScreen(onNavigateToRecipeDetails,onToggleFavoriteButton)
 }
@@ -34,7 +34,7 @@ fun FavoritesRoute(
 @Composable
 fun FavoritesScreen(
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onToggleFavoriteButton: (Boolean) -> Unit
+    onToggleFavoriteButton: (RecipeCardViewState) -> Unit
 ) {
     Scaffold(
         content = { padding ->
@@ -52,7 +52,7 @@ fun FavoritesScreen(
 fun FavoritesBody(
     favouriteRecipesViewState: FavoritesViewState,
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onToggleFavoriteButton: (Boolean) -> Unit,
+    onToggleFavoriteButton: (RecipeCardViewState) -> Unit,
     padding: Spacing
 ) {
     LazyVerticalGrid(

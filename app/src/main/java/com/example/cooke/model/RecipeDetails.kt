@@ -7,6 +7,6 @@ data class Recipe(
     val difficulty: String,
     val ingridients: List<String>,
     val preparation: List<String>,
-    val duration: Float,
+    val duration: Double,
     val isFavorite: Boolean
 )

@@ -20,6 +20,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
 import com.example.cooke.mock.RecipesMock
 import com.example.cooke.ui.component.FavouriteButton
+import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapper
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapperImpl
 import com.example.cooke.ui.theme.CustomHeader
@@ -33,7 +34,7 @@ val RecipeDetailsScreenViewState =
 
 @Composable
 fun RecipeDetailsRoute(
-    onFavoriteToggle: (Boolean) -> Unit
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     RecipeDetailsScreen(
         recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
@@ -44,7 +45,7 @@ fun RecipeDetailsRoute(
 @Composable
 fun RecipeDetailsScreen(
     recipeDetailsScreenViewState: RecipeDetailsViewState,
-    onFavoriteToggle: (Boolean) -> Unit
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Scaffold(
@@ -79,7 +80,7 @@ private fun RecipeDetailsScreenPreview() {
 @Composable
 fun RecipeDetailsPoster(
     recipeDetailsScreenViewState: RecipeDetailsViewState,
-    onFavoriteToggle: (Boolean) -> Unit
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     ConstraintLayout {
         val (image, info) = createRefs()
@@ -93,7 +94,12 @@ fun RecipeDetailsPoster(
                 .height(400.dp)
         )
         FavouriteButton(
-            isFavourite = recipeDetailsScreenViewState.isFavorite,
+            recipeCardViewState = RecipeCardViewState(
+                recipeDetailsScreenViewState.id,
+                recipeDetailsScreenViewState.title,
+                recipeDetailsScreenViewState.imageUrl,
+                recipeDetailsScreenViewState.isFavorite
+            ),
             modifier = Modifier.padding(Spacing().small),
             onFavouriteToggle = onFavoriteToggle
         )

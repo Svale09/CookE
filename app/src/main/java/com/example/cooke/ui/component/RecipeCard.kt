@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.cooke.model.Recipe
 
 
 data class RecipeCardViewState(
@@ -29,7 +30,7 @@ data class RecipeCardViewState(
 fun RecipeCard(
     recipeCardViewState: RecipeCardViewState,
     modifier: Modifier,
-    onFavoriteToggle: (Boolean) -> Unit,
+    onFavoriteToggle: (RecipeCardViewState) -> Unit,
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
 ) {
     Card(
@@ -50,7 +51,7 @@ fun RecipeCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            FavouriteButton(isFavourite = recipeCardViewState.isFavorite, onFavouriteToggle = onFavoriteToggle)
+            FavouriteButton(recipeCardViewState, onFavouriteToggle = onFavoriteToggle)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,7 +74,7 @@ fun RecipeCard(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeCardPreview() {
     RecipeCard(
@@ -86,4 +87,4 @@ private fun RecipeCardPreview() {
         modifier = Modifier,
         {}
     ) {}
-}
+}*/

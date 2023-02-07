@@ -6,13 +6,16 @@ import com.example.cooke.data.mapper.SnapshotMapper
 import com.example.cooke.data.mapper.SnapshotMapperImpl
 import com.example.cooke.data.repository.RecipeRepository
 import com.example.cooke.data.repository.RecipeRepositoryImpl
+import com.example.cooke.ui.home.mapper.HomeScreenMapper
+import com.example.cooke.ui.home.mapper.HomeScreenMapperImpl
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val dataModule = module {
-single<SnapshotMapper> {
-    SnapshotMapperImpl()
-}
+
+    single<SnapshotMapper> {
+        SnapshotMapperImpl()
+    }
     single<RecipeDao> {
         RecipeDaoImpl(snapshotMapper = get())
     }

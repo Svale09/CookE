@@ -9,5 +9,5 @@ interface RecipeDao {
     fun getRecipesByCategory(category: String): Flow<List<Recipe>>
     fun insertRecipe(inputRecipe: InputRecipe)
     fun removeRecipe(recipeId: String)
-    fun toggleIsFavorite(recipe: Recipe)
+    fun toggleIsFavorite(recipeId: String, isFavorite: Boolean)
 }

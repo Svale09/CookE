@@ -6,15 +6,15 @@ import com.example.cooke.model.RecipeCategory
 import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.component.RecipeCategoryLabelTextViewState
 import com.example.cooke.ui.component.RecipeCategoryLabelViewState
-import com.example.cooke.ui.home.HomeRecipeCategoryViewState
+import com.example.cooke.ui.home.HomeScreenViewState
 
 
 class HomeScreenMapperImpl : HomeScreenMapper {
-    override fun toHomeRecipeCategoryViewState(
+    override fun toHomeScreenViewState(
         recipeCategories: List<RecipeCategory>,
         selectedRecipeCategory: RecipeCategory,
         recipes: List<Recipe>
-    ) = HomeRecipeCategoryViewState(
+    ) = HomeScreenViewState(
         recipeCategories = toHomeRecipeCategoryLabelViewState(
             recipeCategories,
             selectedRecipeCategory,

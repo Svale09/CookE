@@ -15,7 +15,7 @@ class SnapshotMapperImpl: SnapshotMapper{
                 imageURI = documentSnapshot["imageURI"] as String,
                 ingridients = documentSnapshot["ingridients"] as List<String>,
                 preparation = documentSnapshot["preparation"] as List<String>,
-                duration = documentSnapshot["duration"] as Float,
+                duration = documentSnapshot["duration"] as Double,
                 difficulty = documentSnapshot["difficulty"] as String,
                 isFavorite = documentSnapshot["isFavorite"] as Boolean
             )

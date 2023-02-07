@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.cooke.data.database.RecipeDao
 import com.example.cooke.model.Recipe
+import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.recipeInput.InputRecipe
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -21,20 +22,20 @@ class RecipeRepositoryImpl(
         recipeDao.getRecipesByCategory(category).flowOn(bgDispatcher)
 
     override suspend fun addRecipe(inputRecipe: InputRecipe) {
-        withContext(bgDispatcher){
+        withContext(bgDispatcher) {
             recipeDao.insertRecipe(inputRecipe)
         }
     }
 
     override suspend fun deleteRecipe(recipe: Recipe) {
-        withContext(bgDispatcher){
+        withContext(bgDispatcher) {
             recipeDao.removeRecipe(recipe.id)
         }
     }
 
-    override suspend fun toggleRecipeFavorite(recipe: Recipe) {
-        withContext(bgDispatcher){
-            recipeDao.toggleIsFavorite(recipe)
+    override suspend fun toggleRecipeFavorite(recipeCardViewState: RecipeCardViewState) {
+        withContext(bgDispatcher) {
+            recipeDao.toggleIsFavorite(recipeCardViewState.id, recipeCardViewState.isFavorite)
         }
     }
 }

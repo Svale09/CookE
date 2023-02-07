@@ -58,7 +58,7 @@ val RecipeInputViewState = RecipeInputViewStateMapper.toRecipeInputScreenViewSta
 )
 
 @Composable
-fun RecipeInputRoute(recipeInputViewModel: RecipeInputViewModel) {
+fun RecipeInputRoute(recipeInputViewModel: RecipeInputViewModel, navigateToHome: () -> Unit) {
     RecipeInputScreen(
         onTitleChange = { title -> recipeInputViewModel.onTitleChange(title) },
         onDifficultyChange = { difficulty -> recipeInputViewModel.onDifficultyChange(difficulty) },
@@ -71,7 +71,8 @@ fun RecipeInputRoute(recipeInputViewModel: RecipeInputViewModel) {
         inputTitle = recipeInputViewModel.inputRecipe.title,
         inputPreperation = recipeInputViewModel.inputRecipe.preparation,
         inputIngridients = recipeInputViewModel.inputRecipe.ingridients,
-        inputDuration = recipeInputViewModel.inputRecipe.duration
+        inputDuration = recipeInputViewModel.inputRecipe.duration,
+        navigateToHome
     )
 }
 
@@ -88,7 +89,8 @@ fun RecipeInputScreen(
     inputTitle: String,
     inputPreperation: String,
     inputIngridients: String,
-    inputDuration: String
+    inputDuration: String,
+    navigateToHome: () -> Unit
 ) {
     Scaffold(
         content = { padding ->
@@ -107,7 +109,10 @@ fun RecipeInputScreen(
                     inputDuration
                 )
                 Button(
-                    onClick = { addRecipe() },
+                    onClick = {
+                        addRecipe()
+                        navigateToHome()
+                    },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
                         .fillMaxWidth()

@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.cooke.data.mapper.SnapshotMapper
 import com.example.cooke.model.Recipe
+import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.recipeInput.InputRecipe
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -67,7 +68,8 @@ class RecipeDaoImpl(private val snapshotMapper: SnapshotMapper) : RecipeDao {
         recipeRef.document(recipeId).delete()
     }
 
-    override fun toggleIsFavorite(recipe: Recipe) {
-        recipeRef.document(recipe.id).update("isFavorite", !recipe.isFavorite)
+    override fun toggleIsFavorite(recipeId: String, isFavorite: Boolean) {
+        //recipeRef.document().update("isFavorite", !recipe.isFavorite)
+        recipeRef.document(recipeId).update("isFavorite",!isFavorite)
     }
 }

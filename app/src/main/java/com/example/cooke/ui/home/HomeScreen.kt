@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cooke.mock.RecipesMock
+import com.example.cooke.model.Recipe
 import com.example.cooke.model.RecipeCategory
 import com.example.cooke.ui.component.RecipeCard
 import com.example.cooke.ui.component.RecipeCardViewState
@@ -21,7 +22,7 @@ import com.example.cooke.ui.theme.Spacing
 
 private val homeScreenMapper: HomeScreenMapper = HomeScreenMapperImpl()
 
-val recipesByCategoryViewState = homeScreenMapper.toHomeRecipeCategoryViewState(
+val recipesByCategoryViewState = homeScreenMapper.toHomeScreenViewState(
     listOf(
         RecipeCategory.CHOCOLATE,
         RecipeCategory.FRUIT,
@@ -37,11 +38,17 @@ val recipesByCategoryViewState = homeScreenMapper.toHomeRecipeCategoryViewState(
 
 @Composable
 fun HomeRoute(
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
+    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
+    homeViewModel: HomeViewModel
 ) {
-    var recipesByCategory by remember { mutableStateOf(recipesByCategoryViewState) }
+    val homeScreenViewState: HomeScreenViewState by homeViewModel.data.collectAsState()
+    //var recipesByCategory by remember { mutableStateOf(recipesByCategoryViewState) }
     HomeScreen(
-        recipeCategories = recipesByCategory,
+        homeScreenViewState = homeScreenViewState,
+        onNavigateToRecipeDetails = onNavigateToRecipeDetails,
+        onFavoriteToggle = { recipe -> homeViewModel.toggleFavorite(recipe) },
+        onCategoryClick = {}
+        /*recipeCategories = recipesByCategory,
         onNavigateToRecipeDetails = onNavigateToRecipeDetails,
         onCategoryClick = {
             when (it.itemId) {
@@ -51,7 +58,7 @@ fun HomeRoute(
                 RecipeCategory.CREAM.ordinal,
                 RecipeCategory.COOKIES.ordinal,
                 RecipeCategory.CAKES.ordinal -> recipesByCategory =
-                    homeScreenMapper.toHomeRecipeCategoryViewState(
+                    homeScreenMapper.toHomeScreenViewState(
                         listOf(
                             RecipeCategory.FRUIT,
                             RecipeCategory.NUTS,
@@ -65,22 +72,22 @@ fun HomeRoute(
                     )
             }
         },
-        onFavoriteToggle = {}
+        onFavoriteToggle = {}*/
     )
 }
 
 @Composable
 fun HomeScreen(
-    recipeCategories: HomeRecipeCategoryViewState,
+    homeScreenViewState: HomeScreenViewState,
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onFavoriteToggle: (Boolean) -> Unit,
+    onFavoriteToggle: (RecipeCardViewState) -> Unit,
     onCategoryClick: (RecipeCategoryLabelViewState) -> Unit
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         content = { padding ->
             HomeScreenBody(
-                recipeCategories = recipeCategories,
+                homeScreenViewState = homeScreenViewState,
                 onNavigateToRecipeDetails = onNavigateToRecipeDetails,
                 onFavoriteToggle = onFavoriteToggle,
                 onCategoryClick = onCategoryClick
@@ -93,7 +100,7 @@ fun HomeScreen(
 @Composable
 private fun HomescreenPreview() {
     HomeScreen(
-        recipeCategories = recipesByCategoryViewState,
+        homeScreenViewState = recipesByCategoryViewState,
         onNavigateToRecipeDetails = {},
         onCategoryClick = {},
         onFavoriteToggle = {}
@@ -102,10 +109,10 @@ private fun HomescreenPreview() {
 
 @Composable
 fun HomeScreenBody(
-    recipeCategories: HomeRecipeCategoryViewState,
+    homeScreenViewState: HomeScreenViewState,
     onCategoryClick: (RecipeCategoryLabelViewState) -> Unit,
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit,
-    onFavoriteToggle: (Boolean) -> Unit
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -113,11 +120,11 @@ fun HomeScreenBody(
             .heightIn(2000.dp)
     ) {
         HomeScreenCategoryList(
-            categories = recipesByCategoryViewState,
+            homeScreenViewState = homeScreenViewState,
             onCategoryClick = onCategoryClick
         )
         HomeScreenCategoryRecipeList(
-            recipeCategory = recipeCategories,
+            recipes = homeScreenViewState.recipes,
             onNavigateToRecipeDetails = onNavigateToRecipeDetails,
             onFavoriteToggle = onFavoriteToggle
         )
@@ -128,7 +135,7 @@ fun HomeScreenBody(
 @Composable
 private fun HomeScreenBodyPreview() {
     HomeScreenBody(
-        recipeCategories = recipesByCategoryViewState,
+        homeScreenViewState = recipesByCategoryViewState,
         onCategoryClick = {},
         onNavigateToRecipeDetails = {},
         onFavoriteToggle = {}
@@ -137,7 +144,7 @@ private fun HomeScreenBodyPreview() {
 
 @Composable
 fun HomeScreenCategoryList(
-    categories: HomeRecipeCategoryViewState,
+    homeScreenViewState: HomeScreenViewState,
     onCategoryClick: (RecipeCategoryLabelViewState) -> Unit
 ) {
     LazyRow(
@@ -145,9 +152,9 @@ fun HomeScreenCategoryList(
             .padding(vertical = Spacing().small)
             .fillMaxWidth(),
     ) {
-        items(categories.recipeCategories.count()) { item ->
+        items(homeScreenViewState.recipeCategories.count()) { item ->
             RecipeCategoryLabel(
-                categoryLabelViewState = recipesByCategoryViewState.recipeCategories[item],
+                categoryLabelViewState = homeScreenViewState.recipeCategories[item],
                 modifier = Modifier.padding(horizontal = Spacing().small),
                 onClick = onCategoryClick
             )
@@ -158,16 +165,15 @@ fun HomeScreenCategoryList(
 @Preview
 @Composable
 private fun HomeScreenCategoryListPreview() {
-    HomeScreenCategoryList(categories = recipesByCategoryViewState, onCategoryClick = {})
+    HomeScreenCategoryList(homeScreenViewState = recipesByCategoryViewState, onCategoryClick = {})
 }
 
 @Composable
 fun HomeScreenCategoryRecipeList(
-    recipeCategory: HomeRecipeCategoryViewState,
-    onFavoriteToggle: (Boolean) -> Unit,
+    recipes: List<RecipeCardViewState>,
+    onFavoriteToggle: (RecipeCardViewState) -> Unit,
     onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
 ) {
-    val recipes = recipeCategory.recipes
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -175,12 +181,7 @@ fun HomeScreenCategoryRecipeList(
     ) {
         items(recipes.count()) { item ->
             RecipeCard(
-                recipeCardViewState = RecipeCardViewState(
-                    id = recipes[item].id,
-                    title = recipes[item].title,
-                    imageUrl = recipes[item].imageUrl,
-                    isFavorite = recipes[item].isFavorite
-                ),
+                recipeCardViewState = recipes[item],
                 onNavigateToRecipeDetails = onNavigateToRecipeDetails,
                 onFavoriteToggle = onFavoriteToggle,
                 modifier = Modifier
@@ -195,7 +196,7 @@ fun HomeScreenCategoryRecipeList(
 @Composable
 private fun HomeScreenCategoryRecipeListPreview() {
     HomeScreenCategoryRecipeList(
-        recipeCategory = recipesByCategoryViewState,
+        recipes = recipesByCategoryViewState.recipes,
         onFavoriteToggle = {},
         onNavigateToRecipeDetails = {}
     )

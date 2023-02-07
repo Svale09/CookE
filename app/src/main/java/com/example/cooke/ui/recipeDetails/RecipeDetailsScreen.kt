@@ -2,14 +2,14 @@ package com.example.cooke.ui.recipeDetails
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -18,14 +18,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import com.example.cooke.mock.RecipesMock
+import com.example.cooke.model.Recipe
+import com.example.cooke.ui.component.FavouriteButton
+import com.example.cooke.ui.component.RecipeCardViewState
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapper
 import com.example.cooke.ui.recipeDetails.mapper.RecipeDetailsMapperImpl
-import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.cooke.model.RecipeDetails
-import com.example.cooke.ui.component.FavouriteButton
 import com.example.cooke.ui.theme.CustomHeader
 import com.example.cooke.ui.theme.SectionTitle
 import com.example.cooke.ui.theme.Spacing
@@ -37,18 +38,30 @@ val RecipeDetailsScreenViewState =
 
 @Composable
 fun RecipeDetailsRoute(
-    onFavoriteToggle: (Boolean) -> Unit
+    recipeDetailsViewModel: RecipeDetailsViewModel
 ) {
+
+    val recipe: Recipe by recipeDetailsViewModel.recipe.collectAsState()
+
     RecipeDetailsScreen(
-        recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
-        onFavoriteToggle = onFavoriteToggle
+        recipe = recipe,
+        onFavoriteToggle = { recipe ->
+            recipeDetailsViewModel.toggleFavorite(
+                RecipeCardViewState(
+                    recipe.id,
+                    recipe.title,
+                    recipe.imageUrl,
+                    recipe.isFavorite
+                )
+            )
+        }
     )
 }
 
 @Composable
 fun RecipeDetailsScreen(
-    recipeDetailsScreenViewState: RecipeDetailsViewState,
-    onFavoriteToggle: (Boolean) -> Unit
+    recipe: Recipe,
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Scaffold(
@@ -61,34 +74,34 @@ fun RecipeDetailsScreen(
                     .padding(Spacing().default)
             ) {
                 RecipeDetailsPoster(
-                    recipeDetailsScreenViewState = recipeDetailsScreenViewState,
+                    recipe = recipe,
                     onFavoriteToggle = onFavoriteToggle
                 )
-                IngridientsList(ingridients = recipeDetailsScreenViewState.ingridients)
-                InstructionsList(instructions = recipeDetailsScreenViewState.preparation)
+                IngridientsList(ingridients = recipe.ingridients)
+                InstructionsList(instructions = recipe.preparation)
             }
         }
     )
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeDetailsScreenPreview() {
     RecipeDetailsScreen(
-        recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
+        recipe = Recipe,
         onFavoriteToggle = {}
     )
-}
+}*/
 
 @Composable
 fun RecipeDetailsPoster(
-    recipeDetailsScreenViewState: RecipeDetailsViewState,
-    onFavoriteToggle: (Boolean) -> Unit
+    recipe: Recipe,
+    onFavoriteToggle: (RecipeCardViewState) -> Unit
 ) {
     ConstraintLayout {
         val (image, info) = createRefs()
         AsyncImage(
-            model = recipeDetailsScreenViewState.imageUrl,
+            model = recipe.imageURI,
             contentDescription = "Recipe image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -97,7 +110,12 @@ fun RecipeDetailsPoster(
                 .height(400.dp)
         )
         FavouriteButton(
-            isFavourite = recipeDetailsScreenViewState.isFavorite,
+            recipeCardViewState = RecipeCardViewState(
+                recipe.id,
+                recipe.title,
+                recipe.imageURI,
+                recipe.isFavorite
+            ),
             modifier = Modifier.padding(Spacing().small),
             onFavouriteToggle = onFavoriteToggle
         )
@@ -125,7 +143,7 @@ fun RecipeDetailsPoster(
                         .height(50.dp)
                 )
                 Text(
-                    text = recipeDetailsScreenViewState.title,
+                    text = recipe.title,
                     style = CustomHeader,
                     color = Color.White
                 )
@@ -141,12 +159,12 @@ fun RecipeDetailsPoster(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = recipeDetailsScreenViewState.preparationTime.toString() + "h",
+                        text = recipe.duration.toString() + "h",
                         color = Color.White
                     )
                 }
                 Text(
-                    text = "Difficulty: " + recipeDetailsScreenViewState.difficulty, //Umjesto teksta će ići ikona
+                    text = "Difficulty: " + recipe.difficulty, //Umjesto teksta će ići ikona
                     color = Color.White
                 )
             }
@@ -154,13 +172,13 @@ fun RecipeDetailsPoster(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeDetailsPosterPreview() {
     RecipeDetailsPoster(
         recipeDetailsScreenViewState = RecipeDetailsScreenViewState,
         onFavoriteToggle = {})
-}
+}*/
 
 @Composable
 fun IngridientsList(

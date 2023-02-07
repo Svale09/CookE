@@ -1,12 +1,13 @@
 package com.example.cooke.model
 
-data class RecipeDetails(
-    val id: Int,
+data class Recipe(
+    val id: String,
     val title: String,
-    val imageUrl: String,
+    val category: String,
+    val imageURI: String,
     val difficulty: String,
     val ingridients: List<String>,
     val preparation: List<String>,
-    val preparationTime: Float,
+    val duration: Double,
     val isFavorite: Boolean
 )

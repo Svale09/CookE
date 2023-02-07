@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.cooke.model.RecipeCategory
 
 
 sealed class RecipeCategoryLabelTextViewState {
@@ -22,6 +23,7 @@ sealed class RecipeCategoryLabelTextViewState {
 }
 
 data class RecipeCategoryLabelViewState(
+    val recipeCategory: RecipeCategory,
     val itemId: Int,
     val isSelected: Boolean,
     val categoryText: RecipeCategoryLabelTextViewState
@@ -31,13 +33,13 @@ data class RecipeCategoryLabelViewState(
 fun RecipeCategoryLabel(
     categoryLabelViewState: RecipeCategoryLabelViewState,
     modifier: Modifier = Modifier,
-    onClick: (RecipeCategoryLabelViewState) -> Unit
+    onClick: (RecipeCategory) -> Unit
 ) {
     Box(modifier = modifier.wrapContentSize()) {
         Column(
             modifier = Modifier
                 .width(intrinsicSize = IntrinsicSize.Max)
-                .clickable { onClick(categoryLabelViewState) }
+                .clickable { onClick(categoryLabelViewState.recipeCategory) }
         ) {
             Text(
                 text = when (categoryLabelViewState.categoryText) {
@@ -61,7 +63,7 @@ fun RecipeCategoryLabel(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun PreviewMovieCategoryLabel() {
     RecipeCategoryLabel(
@@ -73,4 +75,4 @@ private fun PreviewMovieCategoryLabel() {
         modifier = Modifier,
         onClick = {}
     )
-}
+}*/

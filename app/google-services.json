@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "786768166607",
+    "project_id": "cooke-c40f1",
+    "storage_bucket": "cooke-c40f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786768166607:android:9cd71f571a835cb9c0c1ba",
+        "android_client_info": {
+          "package_name": "com.example.cooke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786768166607-4d4ek3dlsagurqdf5m1vapc2n8tgrnpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB48Ij0OfIDpHQLybmgHwo5ccgeU23YCwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786768166607-4d4ek3dlsagurqdf5m1vapc2n8tgrnpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

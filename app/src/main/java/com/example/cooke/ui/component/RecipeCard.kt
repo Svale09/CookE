@@ -16,11 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.cooke.ui.home.HomeRecipeCardViewState
+import com.example.cooke.model.Recipe
 
 
 data class RecipeCardViewState(
-    val id: Int,
+    val id: String,
     val title: String,
     val imageUrl: String?,
     val isFavorite: Boolean
@@ -30,14 +30,14 @@ data class RecipeCardViewState(
 fun RecipeCard(
     recipeCardViewState: RecipeCardViewState,
     modifier: Modifier,
-    onFavoriteToggle: (Boolean) -> Unit,
-    onNavigateToRecipeDetails: (RecipeCardViewState) -> Unit
+    onFavoriteToggle: (RecipeCardViewState) -> Unit,
+    onNavigateToRecipeDetails: (String) -> Unit
 ) {
     Card(
         modifier
             .size(200.dp, 180.dp)
             .padding(10.dp)
-            .clickable { onNavigateToRecipeDetails(recipeCardViewState) },
+            .clickable { onNavigateToRecipeDetails(recipeCardViewState.id) },
         elevation = 10.dp
     ) {
         Box(
@@ -51,7 +51,7 @@ fun RecipeCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxWidth()
             )
-            FavouriteButton(isFavourite = recipeCardViewState.isFavorite, onFavouriteToggle = onFavoriteToggle)
+            FavouriteButton(recipeCardViewState, onFavouriteToggle = onFavoriteToggle)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,12 +74,12 @@ fun RecipeCard(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 private fun RecipeCardPreview() {
     RecipeCard(
         recipeCardViewState = RecipeCardViewState(
-            id = 1,
+            id = "1",
             title = "Black forrest gato cake",
             imageUrl = "https://podravkaiovariations.azureedge.net/b592273e-63bb-11eb-a9a0-0242ac120018/v/f2b1f6a6-64bc-11eb-b6c2-0242ac130010/1024x768-f2b21802-64bc-11eb-a115-0242ac130010.webp",
             isFavorite = false,
@@ -87,4 +87,4 @@ private fun RecipeCardPreview() {
         modifier = Modifier,
         {}
     ) {}
-}
+}*/

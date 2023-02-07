@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CookE</string>
     <string name="chocolate">Chocolate</string>
+    <string name="ALL">All</string>
     <string name="FRUIT">Fruit</string>
     <string name="NUTS">Nuts</string>
     <string name="CREAM">Cream</string>

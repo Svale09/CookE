@@ -1,88 +1,115 @@
 package com.example.cooke.mock
 
 import com.example.cooke.model.Recipe
-import com.example.cooke.model.RecipeDetails
 
 object RecipesMock {
     fun getRecipesList(): List<Recipe> = listOf(
         Recipe(
-            id = 1,
+            id = 1.toString(),
             title = "German Chocolate Cupcakes",
-            imageUrl = "https://www.allrecipes.com/thmb/bdPHwED-UZ4MJNPmNhzSqvp_gS4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/german-chocolate-cupcakes-ddmfs-beauty-3x4-1-3275fd7de389429eb2865cfc5cc13c50.jpg",
-            cookTime = 1.5.toFloat(),
+            imageURI = "https://www.allrecipes.com/thmb/bdPHwED-UZ4MJNPmNhzSqvp_gS4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/german-chocolate-cupcakes-ddmfs-beauty-3x4-1-3275fd7de389429eb2865cfc5cc13c50.jpg",
+            duration = 1.5.toDouble(),
             difficulty = "Amateur",
-            isFavorite = false
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            category = ""
         ),
         Recipe(
-            2,
+            2.toString(),
             "New York Cheesecake",
             "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1",
-            cookTime = 2.5.toFloat(),
+            duration = 2.5.toDouble(),
             difficulty = "Intermediate",
-            true
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            3,
+            3.toString(),
             "Medovik",
             "https://www.tasteatlas.com/images/recipes/bb3fd3423ab64f90b9507ac7bdb47edd.jpg?mw=910",
-            3.0.toFloat(),
-            "Pro",
-            false
+            duration = 3.0,
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            4,
+            4.toString(),
             "Peanut Butter Chocolate Chip Cookies",
             "https://handletheheat.com/wp-content/uploads/2019/02/Peanut-Butter-Chocolate-Chip-Cookies-1-550x550.jpg",
-            1.0.toFloat(),
-            "Amateur",
-            true
+            duration = 1.0,
+            difficulty = "Amateur",
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            5,
+            5.toString(),
             "San Sebastian Cheesecake",
             "https://thebusybaker.ca/wp-content/uploads/2021/09/san-sebastian-cheesecake-6.jpg",
-            2.0.toFloat(),
-            "Pro",
-            false
+            duration = 2.0,
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList()
+            ,
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            6,
+            6.toString(),
             "Ferrero Rocher Cake",
             "https://richanddelish.com/wp-content/uploads/2022/08/Ferrero-Rocher-Cake-1.jpg",
-            2.5.toFloat(),
-            "intermediate",
-            true
+            duration = 2.5,
+            difficulty = "intermediate",
+            isFavorite = true,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            7,
+            7.toString(),
             "Cinnamon rolls",
             "https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Cinnamon-rolls-9fb9daa.jpg?quality=90&webp=true&resize=300,272",
-            2.0.toFloat(),
+            duration = 2.0,
             difficulty = "Intermediate",
-            isFavorite = false
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            8,
+            8.toString(),
             "Salted caramel brownies",
             "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/salted-caramel-brownies-e067f0c.jpg?quality=90&webp=true&resize=300,272",
-            1.25.toFloat(),
-            "Easy",
-            false
+            duration = 1.25,
+            difficulty = "Easy",
+            isFavorite = false,
+            ingridients = emptyList(),
+            preparation = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1"
         ),
         Recipe(
-            9,
+            9.toString(),
             "Vanilla Creme Brulee",
             "https://static01.nyt.com/images/2017/12/13/dining/15COOKING-CREME-BRULEE1/15COOKING-CREME-BRULEE1-master768.jpg?w=1280&q=75",
-            2.75.toFloat(),
-            "Pro",
-            false
+            duration = 2.75,
+            difficulty = "Pro",
+            isFavorite = false,
+            ingridients = emptyList(),
+            imageURI = "https://i0.wp.com/www.onceuponachef.com/images/2017/12/cheesecake.jpg?resize=760%2C882&ssl=1",
+            preparation = emptyList()
         )
     )
 
-    fun getRecipeDetails(): RecipeDetails = RecipeDetails(
-        id = 1,
+    fun getRecipeDetails(): Recipe = Recipe(
+        id = 1.toString(),
         title = "Tiramisu",
-        imageUrl = "https://static01.nyt.com/images/2017/04/05/dining/05COOKING-TIRAMISU1/05COOKING-TIRAMISU1-master768.jpg?w=1280&q=75",
+        imageURI = "https://static01.nyt.com/images/2017/04/05/dining/05COOKING-TIRAMISU1/05COOKING-TIRAMISU1-master768.jpg?w=1280&q=75",
         difficulty = "Intermediate",
         ingridients = listOf(
             "4 large egg yolks",
@@ -104,7 +131,8 @@ object RecipesMock {
             "Dust top layer with remaining tablespoon of cocoa powder. Top with shaved or finely grated chocolate, if desired.",
             "Cover with plastic wrap and let chill in the refrigerator for at least 4 hours (if you can wait 24 hours, all the better) before slicing or scooping to serve."
         ),
-        1.5.toFloat(),
-        false
+        category = "",
+        duration = 1.5,
+        isFavorite = false
     )
 }

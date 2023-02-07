@@ -14,12 +14,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cooke.R
+import com.example.cooke.model.Recipe
 
 @Composable
 fun FavouriteButton(
-    isFavourite: Boolean,
+    recipeCardViewState: RecipeCardViewState,
     modifier: Modifier = Modifier,
-    onFavouriteToggle: (Boolean) -> Unit = { },
+    onFavouriteToggle: (RecipeCardViewState) -> Unit = { },
 ) {
     Box(
         modifier
@@ -27,12 +28,14 @@ fun FavouriteButton(
             .size(37.dp)
             .clip(shape = CircleShape)
             .background(Color(0xFFF06292).copy(alpha = 0.6F))
-            .clickable { onFavouriteToggle(isFavourite) },
+            .clickable {
+                onFavouriteToggle(recipeCardViewState)
+            },
         contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(
-                id = if (isFavourite) R.drawable.favuoirte_icon_selected else R.drawable.favourite_icon_unselected
+                id = if (recipeCardViewState.isFavorite) R.drawable.favuoirte_icon_selected else R.drawable.favourite_icon_unselected
             ),
             contentDescription = "Favourite Icon",
         )
@@ -40,8 +43,8 @@ fun FavouriteButton(
 }
 
 
-@Preview
+/*@Preview
 @Composable
 private fun PreviewFavouriteButton() {
     FavouriteButton(false)
-}
+}*/

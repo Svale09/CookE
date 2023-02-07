@@ -29,7 +29,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import com.example.cooke.navigation.RECIPE_INPUT_ROUTE
 import com.example.cooke.ui.favorites.FavoritesRoute
+import com.example.cooke.ui.recipeDetails.di.recipeDetailsModule
 import com.example.cooke.ui.recipeInput.RecipeInputRoute
+import org.koin.androidx.compose.get
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainScreen() {
@@ -89,31 +93,35 @@ fun MainScreen() {
                     HomeRoute(
                         onNavigateToRecipeDetails = {
                             navController.navigate(
-                                RecipeDetailsDestination.createNavigationRoute(recipeId = it.id)
+                                RecipeDetailsDestination.createNavigationRoute(recipeId = it)
                             )
-                        }
+                        },
+                        homeViewModel = getViewModel()
                     )
                 }
-                composable(NavigationItem.RecipeInputDestination.route){
-                    RecipeInputRoute()
+                composable(NavigationItem.RecipeInputDestination.route) {
+                    RecipeInputRoute(
+                        recipeInputViewModel = getViewModel(),
+                        { navController.navigate(NavigationItem.HomeDestination.route) })
                 }
                 composable(NavigationItem.FavoritesDestination.route) {
                     FavoritesRoute(
                         onNavigateToRecipeDetails = {
                             navController.navigate(
                                 RecipeDetailsDestination.createNavigationRoute(
-                                    recipeId = it.id
+                                    recipeId = it
                                 )
                             )
                         },
-                        onToggleFavoriteButton = {}
+                        favoritesViewModel = getViewModel()
                     )
                 }
                 composable(
                     route = RecipeDetailsDestination.route,
-                    arguments = listOf(navArgument(RECIPE_ID_KEY) { type = NavType.IntType }),
+                    arguments = listOf(navArgument(RECIPE_ID_KEY) { type = NavType.StringType }),
                 ) {
-                    RecipeDetailsRoute(onFavoriteToggle = {})
+                    val recipeId = it.arguments?.getString(RECIPE_ID_KEY)
+                    RecipeDetailsRoute(recipeDetailsViewModel = getViewModel(parameters = { parametersOf(recipeId) }))
                 }
             }
         }

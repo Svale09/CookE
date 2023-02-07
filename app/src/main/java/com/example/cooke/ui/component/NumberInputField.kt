@@ -3,50 +3,37 @@ package com.example.cooke.ui.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cooke.ui.theme.SectionTitle
 
-
-data class InputFieldViewState(
-    val title: String,
-    val placeholder: String,
-)
-
 @Composable
-fun InputField(
+fun NumberInputField(
     inputFieldViewState: InputFieldViewState,
-    onValueChange: (value: String) -> Unit,
-    text: String,
-    modifier: Modifier
+    modifier: Modifier,
+    onValueChange: (String) -> Unit,
+    text: String
 ) {
-    Column(
-        modifier.wrapContentSize(),
-        horizontalAlignment = Alignment.Start
-    ) {
+    Column(modifier = modifier) {
         Text(
-            text = inputFieldViewState.title,
-            style = SectionTitle,
-            modifier = Modifier.padding(horizontal = 18.dp),
-            color = Color(0xff3f001b)
+            text = "Vrijeme pripreme",
+            modifier = Modifier.padding(horizontal = 16.dp),
+            style = SectionTitle
         )
         OutlinedTextField(
-            value = text,
+            value = text.toString(),
             onValueChange = { onValueChange(it) },
             placeholder = { Text(text = inputFieldViewState.placeholder) },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier
                 .padding(vertical = 5.dp, horizontal = 10.dp)
                 .fillMaxWidth(),
@@ -61,14 +48,14 @@ fun InputField(
 
 @Preview
 @Composable
-private fun PreviewInputField() {
-    InputField(
+private fun NumberInputFielPreview() {
+    NumberInputField(
         inputFieldViewState = InputFieldViewState(
-            "Naziv",
-            "Unesi naziv kolača",
+            title = "Vrijeme pripreme (hh:mm)",
+            "Unesi vrijeme pripreme",
         ),
-        modifier = Modifier,
-        onValueChange = {},
-        text = ""
+        modifier = Modifier.padding(6.dp),
+        {},
+        ""
     )
 }
